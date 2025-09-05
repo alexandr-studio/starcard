@@ -1,3 +1,11 @@
+---
+import "../styles/global.css";
+import { SEO } from "astro-seo";
+
+const { title = "Alexandr Codes", description = "Alexandr Codes profile" } =
+	Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -5,7 +13,37 @@
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{title}</title>
+		<link rel="sitemap" href="/sitemap-index.xml" />
+		<SEO
+			title="A Very Descriptive Title"
+			description="A heavily optimized description full of well-researched keywords."
+			openGraph={{
+				basic: {
+					title: "A Very Descriptive Title",
+					type: "A type.",
+					image:
+						"https://user-images.githubusercontent.com/5182256/131216951-8f74f425-f775-463d-a11b-0e01ad9fce8d.png",
+				},
+			}}
+			twitter={{
+				creator: "@jonasmerlins1",
+			}}
+			extend={{
+				// extending the default link tags
+				link: [{ rel: "icon", href: "/favicon.ico" }],
+				// extending the default meta tags
+				meta: [
+					{
+						name: "twitter:image",
+						content:
+							"https://user-images.githubusercontent.com/5182256/131216951-8f74f425-f775-463d-a11b-0e01ad9fce8d.png",
+					},
+					{ name: "twitter:title", content: "Tinker Tailor Soldier Spy" },
+					{ name: "twitter:description", content: "Agent" },
+				],
+			}}
+		/>
 	</head>
 	<body>
 		<slot />
