@@ -1,0 +1,117 @@
+---
+import { cn } from "@/lib/cn";
+
+export interface Props {
+	name?: string;
+	title?: string;
+	avatarUrl?: string;
+	avatarRounded?: "none" | "sm" | "md" | "lg" | "xl" | "full";
+}
+
+const { name, title, avatarUrl, avatarRounded = "xl" } = Astro.props as Props;
+
+const avatarRoundedSize = {
+	none: "0",
+	sm: "1rem",
+	md: "2rem",
+	lg: "3rem",
+	xl: "5rem",
+	full: "99999rem",
+};
+---
+
+<div class="persona h-full p-8">
+	<div
+		class="persona__body h-full flex flex-row flex-nowrap justify-start content-stretch items-start"
+	>
+		<div class="persona__avatar flex items-center justify-center">
+			{
+				avatarUrl && (
+					<img
+						src={avatarUrl}
+						alt={name}
+						class={cn("aspect-square object-cover overflow-hidden")}
+					/>
+				)
+			}
+		</div>
+		<div class="persona__name flex items-center">
+			<div class="persona__name__content text-start">
+				<h1 class="mt-4 leading-none font-bold tracking-tight text-gray-900">
+					{name}
+				</h1>
+				<p class="mt-4 leading-none text-gray-500">
+					{title}
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style define:vars={{ roundedSize: avatarRoundedSize[avatarRounded] }}>
+	@media (aspect-ratio > 1/1) {
+		.persona__body {
+			flex-direction: row;
+			gap: 5rem;
+		}
+		.persona__avatar {
+			flex: 1 1 35%;
+			align-self: center;
+			max-width: 35%;
+		}
+		.persona__avatar img {
+			height: clamp(18vh, 25cqw, 20vh);
+			width: clamp(18vh, 25cqw, 20vh);
+			border-radius: var(--roundedSize);
+		}
+		.persona__name {
+			flex: 3 1 65%;
+			align-self: center;
+			justify-content: flex-start;
+		}
+		.persona__name h1 {
+			font-size: clamp(1.75rem, 8cqw, 4rem);
+		}
+		.persona__name p {
+			font-size: clamp(1rem, 2.5cqw, 1.25rem);
+		}
+	}
+
+	@media (aspect-ratio <= 1/1) {
+		.persona__body {
+			flex-direction: column;
+			justify-content: center;
+			align-content: stretch;
+			align-items: center;
+			gap: 2rem;
+		}
+
+		.persona__avatar {
+			flex: 0 1 auto;
+			align-self: center;
+		}
+
+		.persona__avatar img {
+			height: clamp(18vh, 25cqw, 20vh);
+			width: clamp(18vh, 25cqw, 20vh);
+			border-radius: var(--roundedSize);
+		}
+
+		.persona__name {
+			flex: 0 1 auto;
+			align-self: center;
+			justify-content: center;
+		}
+
+		.persona__name__content {
+			text-align: center;
+		}
+
+		.persona__name h1 {
+			font-size: clamp(2.5rem, 6cqw, 3.5rem);
+		}
+		.persona__name p {
+			font-size: clamp(1.25rem, 2.5cqw, 1.25rem);
+		}
+	}
+</style>
