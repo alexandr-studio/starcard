@@ -29,7 +29,7 @@ const phoneIntl = phone ? (formatPhoneIntl(phone) ?? phone) : null;
 			{
 				phoneIntl && (
 					<Field>
-						{phoneIntl}
+						<a href={`tel:${phone}`}>{phoneIntl}</a>
 						<span slot="icon">
 							<PhoneIcon />
 						</span>
@@ -39,7 +39,7 @@ const phoneIntl = phone ? (formatPhoneIntl(phone) ?? phone) : null;
 			{
 				email && (
 					<Field>
-						{email}
+						<a href={`mailto:${email}`}>{email}</a>
 						<span slot="icon">
 							<EmailIcon />
 						</span>
@@ -49,7 +49,9 @@ const phoneIntl = phone ? (formatPhoneIntl(phone) ?? phone) : null;
 			{
 				homePage && (
 					<Field>
-						{homePage}
+						<a target="_blank" href={homePage}>
+							{homePage}
+						</a>
 						<span slot="icon">
 							<WebsiteIcon />
 						</span>
@@ -59,7 +61,12 @@ const phoneIntl = phone ? (formatPhoneIntl(phone) ?? phone) : null;
 			{
 				location && (
 					<Field>
-						{location}
+						<a
+							target="_blank"
+							href={`https://maps.google.com/?q=${encodeURIComponent(location)}`}
+						>
+							{location}
+						</a>
 						<span slot="icon">
 							<LocationIcon />
 						</span>

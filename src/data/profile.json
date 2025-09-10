@@ -21,8 +21,23 @@
 				},
 				{
 					"id": "x",
-					"icon": "linkedin",
-					"url": "https://www.x.com/alexander-x"
+					"icon": "twitter",
+					"url": "https://x.com/AlexandrCodes"
+				},
+				{
+					"id": "github",
+					"icon": "github",
+					"url": "https://github.com/alexandrstudio"
+				},
+				{
+					"id": "instagram",
+					"icon": "instagram",
+					"url": "https://www.instagram.com/alexandr.codes"
+				},
+				{
+					"id": "codepen",
+					"icon": "codepen",
+					"url": "https://codepen.io/studioalex"
 				}
 			]
 		},
@@ -34,13 +49,13 @@
 			"items": [
 				{
 					"id": "youtube",
-					"icon": "linkedin",
-					"url": "https://www.linkedin.com/in/alexander-sedeke"
+					"icon": "youtube",
+					"url": "https://www.youtube.com/@happilylostinprague"
 				},
 				{
 					"id": "substack",
-					"icon": "linkedin",
-					"url": "https://www.linkedin.com/in/alexander-sedeke"
+					"icon": "substack",
+					"url": "https://substack.com/@alexandcodes"
 				}
 			]
 		},

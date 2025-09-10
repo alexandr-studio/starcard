@@ -1,20 +1,81 @@
 ---
-// import Welcome from "../components/Welcome.astro";
-import Layout from "../layouts/Layout.astro";
-import CardLayout from "../layouts/CardLayout.astro";
-import Persona from "../components/Persona.astro";
+import Layout from "@/layouts/Layout.astro";
+import Persona from "@/components/Persona.astro";
+import Info from "@/components/Info.astro";
+import Section from "@/components/Section.astro";
+import Field from "@/components/Field.astro";
+import LegalSection from "@/components/LegalSection.astro";
+import { validatedProfile as profile } from "@/lib/validateProfile";
+import { formatUrlPath } from "@/lib/url";
+import type { LegalField } from "@/components/LegalSection.astro";
+
+const iconModules = import.meta.glob("../components/icons/*.astro", {
+	eager: true,
+});
+// normalize keys: "@/components/icons/linkedin.astro" → "linkedin"
+const icons = Object.fromEntries(
+	Object.entries(iconModules).map(([path, mod]) => {
+		const name = path.split("/").pop()?.replace(".astro", "") ?? "";
+		return [name.toLowerCase(), (mod as any).default];
+	})
+);
 ---
 
 <Layout>
-	<CardLayout>
-		<div class="h-[40cqh]">
-			<Persona
-				name="Alexander Sedeke"
-				title="Full-stack Developer & Videographer"
-				avatarUrl="https://github.com/alexandrstudio.png"
-				avatarRounded="md"
+	<Persona
+		name={profile.fullname}
+		title={profile.title}
+		avatarUrl={profile.avatarUrl}
+		avatarRounded={profile.avatarRounded as
+			| "full"
+			| "none"
+			| "sm"
+			| "md"
+			| "lg"
+			| "xl"}
+	/>
+	<Info
+		phone={profile.phone}
+		email={profile.email}
+		homePage={profile.homePage}
+		location={profile.location}
+	/>
+	{
+		profile.sections?.map((section) => {
+			const SectionIcon = icons[section.icon?.toLowerCase() ?? ""] ?? null;
+
+			return (
+				<Section title={section.title}>
+					{SectionIcon && <SectionIcon slot="icon" title={section.title} />}
+					<div class="flex flex-col flex-nowrap gap-4">
+						{section.items
+							?.map((item) => {
+								const Icon = icons[item.icon?.toLowerCase() ?? ""] ?? null;
+								return (
+									<Field>
+										<a target="_blank" href={item.url} title={item.url}>
+											{formatUrlPath(item.url ?? "")}
+										</a>
+										{Icon && (
+											<span slot="icon">
+												<Icon title={item.url ?? ""} />
+											</span>
+										)}
+									</Field>
+								);
+							})
+							.sort((a, b) => a.order - b.order)}
+					</div>
+				</Section>
+			);
+		})
+	}
+	{
+		profile.legal && (
+			<LegalSection
+				title={profile.legal.title}
+				records={profile.legal.items as LegalField[]}
 			/>
-		</div>
-		<div class="flex-1"></div>
-	</CardLayout>
+		)
+	}
 </Layout>
