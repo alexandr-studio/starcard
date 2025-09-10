@@ -4,8 +4,9 @@ import Info from "@/components/Info.astro";
 import Section from "@/components/Section.astro";
 import Field from "@/components/Field.astro";
 import LegalSection from "@/components/LegalSection.astro";
-import person from "@/content/person.json";
+import { validatedProfile as profile } from "@/lib/validateProfile";
 import { formatUrlPath } from "@/lib/url";
+import type { LegalField } from "@/components/LegalSection.astro";
 
 const iconModules = import.meta.glob("../components/icons/*.astro", {
 	eager: true,
@@ -23,10 +24,10 @@ const icons = Object.fromEntries(
 	class="card min-h-[100dvh] min-w-[100dvw] flex flex-col flex-nowrap gap-20 p-12"
 >
 	<Persona
-		name={person.fullname}
-		title={person.title}
-		avatarUrl={person.avatarUrl}
-		avatarRounded={person.avatarRounded as
+		name={profile.fullname}
+		title={profile.title}
+		avatarUrl={profile.avatarUrl}
+		avatarRounded={profile.avatarRounded as
 			| "full"
 			| "none"
 			| "sm"
@@ -35,13 +36,13 @@ const icons = Object.fromEntries(
 			| "xl"}
 	/>
 	<Info
-		phone={person.phone}
-		email={person.email}
-		homePage={person.homePage}
-		location={person.location}
+		phone={profile.phone}
+		email={profile.email}
+		homePage={profile.homePage}
+		location={profile.location}
 	/>
 	{
-		person.sections.map((section) => {
+		profile.sections?.map((section) => {
 			const SectionIcon = icons[section.icon?.toLowerCase() ?? ""] ?? null;
 
 			return (
@@ -49,14 +50,14 @@ const icons = Object.fromEntries(
 					{SectionIcon && <SectionIcon slot="icon" title={section.title} />}
 					<div class="flex flex-col flex-nowrap gap-4">
 						{section.items
-							.map((item) => {
+							?.map((item) => {
 								const Icon = icons[item.icon?.toLowerCase() ?? ""] ?? null;
 								return (
 									<Field>
-										<span>{formatUrlPath(item.url)}</span>
+										<span>{formatUrlPath(item.url ?? "")}</span>
 										{Icon && (
 											<span slot="icon">
-												<Icon title={item.url} />
+												<Icon title={item.url ?? ""} />
 											</span>
 										)}
 									</Field>
@@ -68,7 +69,14 @@ const icons = Object.fromEntries(
 			);
 		})
 	}
-	<LegalSection title={person.legal.title} records={person.legal.items} />
+	{
+		profile.legal && (
+			<LegalSection
+				title={profile.legal.title}
+				records={profile.legal.items as LegalField[]}
+			/>
+		)
+	}
 
 	<footer class="text-center text-sm opacity-30">
 		© {new Date().getFullYear()} Alexander Sedeke

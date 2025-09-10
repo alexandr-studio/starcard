@@ -6,16 +6,16 @@ import Record from "@/components/Record.astro";
 export type LegalField = {
 	order: number;
 	id: string;
-	title: string;
-	value: string;
+	title?: string | undefined;
+	value?: string | undefined;
 };
 
 export interface Props {
-	title: string;
+	title?: string | undefined;
 	records?: LegalField[];
 }
 
-const { title, records = [] } = Astro.props as Props;
+const { title = "Legal", records = [] } = Astro.props as Props;
 ---
 
 <Section title={title}>

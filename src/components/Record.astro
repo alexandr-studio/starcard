@@ -1,7 +1,7 @@
 ---
 export interface Props {
-	title: string;
-	value: string;
+	title?: string | null | undefined;
+	value?: string | null | undefined;
 }
 
 const { title, value } = Astro.props;
@@ -11,9 +11,9 @@ const { title, value } = Astro.props;
 	<div
 		class="w-32 flex-shrink-0 font-medium text-font-secondary overflow-hidden text-ellipsis whitespace-nowrap"
 	>
-		{title}
+		{title || ""}
 	</div>
 	<div class="flex-1 font-extralight text-font-primary break-words">
-		{value}
+		{value || ""}
 	</div>
 </div>
