@@ -1,0 +1,72 @@
+{
+	"fullname": "Alexander Sedeke",
+	"title": "Full-stack Developer & Videographer",
+	"avatarUrl": "https://github.com/alexandrstudio.png",
+	"avatarRounded": "full",
+	"email": "alexandr@alexandr.codes",
+	"phone": "+420777123456",
+	"homePage": "https://alexandr.codes",
+	"location": "Prague, Czech Republic",
+	"sections": [
+		{
+			"order": 1,
+			"id": "socials",
+			"title": "Socials",
+			"icon": "social",
+			"items": [
+				{
+					"id": "linkedin",
+					"icon": "linkedin",
+					"url": "https://www.linkedin.com/in/alexander-sedeke"
+				},
+				{
+					"id": "x",
+					"icon": "linkedin",
+					"url": "https://www.x.com/alexander-x"
+				}
+			]
+		},
+		{
+			"order": 1,
+			"id": "presence",
+			"title": "Presence",
+			"icon": "starfill",
+			"items": [
+				{
+					"id": "youtube",
+					"icon": "linkedin",
+					"url": "https://www.linkedin.com/in/alexander-sedeke"
+				},
+				{
+					"id": "substack",
+					"icon": "linkedin",
+					"url": "https://www.linkedin.com/in/alexander-sedeke"
+				}
+			]
+		},
+		{
+			"order": 3,
+			"id": "support",
+			"title": "Support",
+			"icon": "coffee",
+			"items": [
+				{
+					"id": "buymeacoffee",
+					"icon": "linkedin",
+					"url": "https://www.linkedin.com/in/alexander-sedeke"
+				}
+			]
+		}
+	],
+	"legal": {
+		"title": "Legal",
+		"items": [
+			{
+				"order": 1,
+				"id": "vatid",
+				"title": "VAT ID",
+				"value": "CZ1234567890"
+			}
+		]
+	}
+}

@@ -1,0 +1,33 @@
+---
+export interface Props {
+	title: string;
+	value: string;
+}
+
+const { title, value } = Astro.props;
+---
+
+<div class="record flex flex-row flex-nowrap justify-start items-start gap-6">
+	<div class="record__title flex-shrink-0 text-lg font-medium">
+		{title}
+	</div>
+	<div class="record__value flex-1 text-lg font-extralight">
+		{value}
+	</div>
+</div>
+
+<style>
+	.record__title {
+		color: var(--font-secondary);
+		width: 8rem; /* Fixed width for consistent alignment */
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+
+	.record__value {
+		color: var(--font-primary);
+		word-wrap: break-word;
+		word-break: break-word;
+	}
+</style>

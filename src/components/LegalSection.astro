@@ -1,0 +1,32 @@
+---
+import Section from "@/components/Section.astro";
+import LegalIcon from "@/components/icons/Legal.astro";
+import Record from "@/components/Record.astro";
+
+export type LegalField = {
+	order: number;
+	id: string;
+	title: string;
+	value: string;
+};
+
+export interface Props {
+	title: string;
+	records?: LegalField[];
+}
+
+const { title, records = [] } = Astro.props as Props;
+---
+
+<Section title={title}>
+	<LegalIcon slot="icon" title={title} />
+	{
+		records.length > 0 && (
+			<div class="flex flex-col flex-nowrap gap-4">
+				{records.map((item: LegalField) => (
+					<Record title={item.title} value={item.value} />
+				))}
+			</div>
+		)
+	}
+</Section>

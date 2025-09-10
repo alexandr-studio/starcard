@@ -1,0 +1,19 @@
+---
+import IconBase from "../IconBase.astro";
+export interface Props {
+	title?: string;
+	class?: string;
+}
+const { title, class: className } = Astro.props;
+---
+
+<IconBase title={title} class={className} viewBox="0 0 24 24">
+		<g clip-path="url(#clip0_14_34690)">
+	<path d="M23.0626 10.95H12.3001V14.1375H20.0251C19.6126 18.5625 16.0126 20.475 12.5251 20.475C8.1001 20.475 4.1626 17.025 4.1626 12.0375C4.1626 7.23754 7.9126 3.60004 12.5251 3.60004C16.0501 3.60004 18.1876 5.88754 18.1876 5.88754L20.3626 3.60004C20.3626 3.60004 17.4376 0.412541 12.3751 0.412541C5.7001 0.375041 0.600098 5.96254 0.600098 12C0.600098 17.85 5.4001 23.625 12.4876 23.625C18.7501 23.625 23.2501 19.3875 23.2501 13.05C23.2876 11.7375 23.0626 10.95 23.0626 10.95Z" fill="currentColor"/>
+	</g>
+	<defs>
+	<clipPath id="clip0_14_34690">
+	<rect width="24" height="24" fill="currentColor"/>
+	</clipPath>
+	</defs>
+</IconBase>

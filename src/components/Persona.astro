@@ -1,6 +1,4 @@
 ---
-import { cn } from "@/lib/cn";
-
 export interface Props {
 	name?: string;
 	title?: string;
@@ -31,7 +29,7 @@ const avatarRoundedSize = {
 						<img
 							src={avatarUrl}
 							alt={name}
-							class={cn("aspect-square object-cover overflow-hidden")}
+							class="aspect-square object-cover overflow-hidden"
 						/>
 					</div>
 				)

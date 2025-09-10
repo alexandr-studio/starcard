@@ -1,0 +1,17 @@
+---
+import IconBase from "../IconBase.astro";
+export interface Props {
+	title?: string;
+	class?: string;
+}
+const { title, class: className } = Astro.props;
+---
+
+<IconBase title={title} class={className} viewBox="0 0 24 24">
+		<path d="M18.8248 21.5624H4.31231V15.3374H2.1748V23.6249H20.8498V15.3374H18.8248V21.5624Z" fill="currentColor"/>
+	<path d="M15.6496 0.367432L13.9932 1.59627L20.1597 9.90836L21.8161 8.67952L15.6496 0.367432Z" fill="currentColor"/>
+	<path d="M11.8349 3.70361L10.5161 5.28947L18.4742 11.9072L19.793 10.3214L11.8349 3.70361Z" fill="currentColor"/>
+	<path d="M16.725 17.3999H6.375V19.4624H16.725V17.3999Z" fill="currentColor"/>
+	<path d="M18.1501 12.4125L8.8126 7.98755L7.9126 9.90005L17.2876 14.2875L18.1501 12.4125Z" fill="currentColor"/>
+	<path d="M17.1374 14.85L7.0124 12.675L6.5249 14.7375L16.7249 16.875L17.1374 14.85Z" fill="currentColor"/>
+</IconBase>

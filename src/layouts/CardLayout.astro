@@ -1,25 +1,78 @@
 ---
-import Persona from "../components/Persona.astro";
-import Info from "../components/Info.astro";
-import Seperator from "../components/Seperator.astro";
+import Persona from "@/components/Persona.astro";
+import Info from "@/components/Info.astro";
+import Section from "@/components/Section.astro";
+import Field from "@/components/Field.astro";
+import LegalSection from "@/components/LegalSection.astro";
+import person from "@/content/person.json";
+import { formatUrlPath } from "@/lib/url";
+
+const iconModules = import.meta.glob("../components/icons/*.astro", {
+	eager: true,
+});
+// normalize keys: "@/components/icons/linkedin.astro" → "linkedin"
+const icons = Object.fromEntries(
+	Object.entries(iconModules).map(([path, mod]) => {
+		const name = path.split("/").pop()?.replace(".astro", "") ?? "";
+		return [name.toLowerCase(), (mod as any).default];
+	})
+);
 ---
 
 <div
 	class="card min-h-[100dvh] min-w-[100dvw] flex flex-col flex-nowrap gap-20 p-12"
 >
 	<Persona
-		name="Alexander Sedeke"
-		title="Full-stack Developer & Videographer"
-		avatarUrl="https://github.com/alexandrstudio.png"
-		avatarRounded="full"
+		name={person.fullname}
+		title={person.title}
+		avatarUrl={person.avatarUrl}
+		avatarRounded={person.avatarRounded as
+			| "full"
+			| "none"
+			| "sm"
+			| "md"
+			| "lg"
+			| "xl"}
 	/>
 	<Info
-		phone="+420777123456"
-		email="alexandr@alexandr.codes"
-		homePage="https://alexandr.codes"
-		location="Prague, Czech Republic"
+		phone={person.phone}
+		email={person.email}
+		homePage={person.homePage}
+		location={person.location}
 	/>
-	<Seperator />
+	{
+		person.sections.map((section) => {
+			const SectionIcon = icons[section.icon?.toLowerCase() ?? ""] ?? null;
+
+			return (
+				<Section title={section.title}>
+					{SectionIcon && <SectionIcon slot="icon" title={section.title} />}
+					<div class="flex flex-col flex-nowrap gap-4">
+						{section.items
+							.map((item) => {
+								const Icon = icons[item.icon?.toLowerCase() ?? ""] ?? null;
+								return (
+									<Field>
+										<span>{formatUrlPath(item.url)}</span>
+										{Icon && (
+											<span slot="icon">
+												<Icon title={item.url} />
+											</span>
+										)}
+									</Field>
+								);
+							})
+							.sort((a, b) => a.order - b.order)}
+					</div>
+				</Section>
+			);
+		})
+	}
+	<LegalSection title={person.legal.title} records={person.legal.items} />
+
+	<footer class="text-center text-sm opacity-30">
+		© {new Date().getFullYear()} Alexander Sedeke
+	</footer>
 </div>
 
 <style>
