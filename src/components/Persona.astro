@@ -37,10 +37,12 @@ const avatarRoundedSize = {
 		</div>
 		<div class="persona__name flex items-center">
 			<div class="persona__name__content text-start">
-				<h1 class="mt-4 leading-none font-bold tracking-tight">
+				<h1
+					class="mt-4 leading-none font-bold tracking-tight text-font-primary"
+				>
 					{name}
 				</h1>
-				<p class="mt-4 leading-none font-light">
+				<p class="mt-4 leading-none font-light text-font-secondary">
 					{title}
 				</p>
 			</div>
@@ -49,14 +51,6 @@ const avatarRoundedSize = {
 </div>
 
 <style define:vars={{ roundedSize: avatarRoundedSize[avatarRounded] }}>
-	.persona__name h1 {
-		color: var(--font-primary);
-	}
-
-	.persona__name p {
-		color: var(--font-secondary);
-	}
-
 	.gradient-border-circle {
 		display: inline-flex;
 		align-items: center;
