@@ -1,0 +1,74 @@
+---
+import QRCode from "@/components/qrcode.astro";
+import Field from "@/components/Field.astro";
+import PhoneIcon from "@/components/icons/Phone.astro";
+import EmailIcon from "@/components/icons/Email.astro";
+import WebsiteIcon from "@/components/icons/Web.astro";
+import LocationIcon from "@/components/icons/Location.astro";
+
+export interface Props {
+	phone?: string;
+	email?: string;
+	homePage?: string;
+	location?: string;
+}
+
+const { phone, email, homePage, location } = Astro.props as Props;
+
+import { formatPhoneIntl } from "@/lib/phone";
+const phoneIntl = phone ? (formatPhoneIntl(phone) ?? phone) : null;
+---
+
+<div
+	class="h-full flex flex-row flex-nowrap justify-center content-center items-center gap-12"
+>
+	<div
+		class="w-[70%] flex flex-row flex-wrap justify-center content-center items-center"
+	>
+		<div class="flex-1 flex flex-col justify-start gap-4">
+			{
+				phoneIntl && (
+					<Field>
+						{phoneIntl}
+						<span slot="icon">
+							<PhoneIcon />
+						</span>
+					</Field>
+				)
+			}
+			{
+				email && (
+					<Field>
+						{email}
+						<span slot="icon">
+							<EmailIcon />
+						</span>
+					</Field>
+				)
+			}
+			{
+				homePage && (
+					<Field>
+						{homePage}
+						<span slot="icon">
+							<WebsiteIcon />
+						</span>
+					</Field>
+				)
+			}
+			{
+				location && (
+					<Field>
+						{location}
+						<span slot="icon">
+							<LocationIcon />
+						</span>
+					</Field>
+				)
+			}
+		</div>
+		<div class="self-end">
+			<div class="size-32">{homePage && <QRCode value={homePage} />}</div>
+		</div>
+	</div>
+</div>

@@ -1,8 +1,7 @@
 // @ts-check
-
+import { defineConfig, fontProviders } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
-import { defineConfig } from "astro/config";
 import robotsTxt from "astro-robots-txt";
 
 // https://astro.build/config
@@ -29,4 +28,14 @@ export default defineConfig({
 			],
 		}),
 	],
+	experimental: {
+		fonts: [
+			{
+				provider: fontProviders.google(),
+				name: "Plus Jakarta Sans",
+				cssVariable: "--font-plus-jakarta-sans",
+				weights: [200, 300, 400, 500, 600, 700, 800, 900],
+			},
+		],
+	},
 });

@@ -1,0 +1,18 @@
+---
+
+---
+
+<div
+	class="flex flex-row flex-nowrap justify-start content-center items-center gap-8"
+>
+	<div class="field__icon size-8">
+		<slot name="icon" />
+	</div>
+	<div class="field__text text-2xl font-extralight"><slot /></div>
+</div>
+
+<style>
+	.field__icon {
+		color: var(--font-secondary);
+	}
+</style>

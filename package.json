@@ -17,10 +17,13 @@
 		"astro-robots-txt": "^1.0.0",
 		"astro-seo": "^0.8.4",
 		"clsx": "^2.1.1",
+		"libphonenumber-js": "^1.12.15",
+		"qrcode": "^1.5.4",
 		"tailwind-merge": "^3.3.1",
 		"tailwindcss": "^4.1.13"
 	},
 	"devDependencies": {
+		"@types/qrcode": "^1.5.5",
 		"prettier": "^3.6.2",
 		"prettier-plugin-astro": "^0.14.1"
 	}

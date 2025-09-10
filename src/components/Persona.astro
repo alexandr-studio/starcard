@@ -20,27 +20,29 @@ const avatarRoundedSize = {
 };
 ---
 
-<div class="persona h-full p-8">
+<div class="persona h-full">
 	<div
 		class="persona__body h-full flex flex-row flex-nowrap justify-start content-stretch items-start"
 	>
-		<div class="persona__avatar flex items-center justify-center">
+		<div class="persona__avatar flex items-center justify-end">
 			{
 				avatarUrl && (
-					<img
-						src={avatarUrl}
-						alt={name}
-						class={cn("aspect-square object-cover overflow-hidden")}
-					/>
+					<div class="gradient-border-circle">
+						<img
+							src={avatarUrl}
+							alt={name}
+							class={cn("aspect-square object-cover overflow-hidden")}
+						/>
+					</div>
 				)
 			}
 		</div>
 		<div class="persona__name flex items-center">
 			<div class="persona__name__content text-start">
-				<h1 class="mt-4 leading-none font-bold tracking-tight text-gray-900">
+				<h1 class="mt-4 leading-none font-bold tracking-tight">
 					{name}
 				</h1>
-				<p class="mt-4 leading-none text-gray-500">
+				<p class="mt-4 leading-none font-light">
 					{title}
 				</p>
 			</div>
@@ -49,6 +51,28 @@ const avatarRoundedSize = {
 </div>
 
 <style define:vars={{ roundedSize: avatarRoundedSize[avatarRounded] }}>
+	.persona__name h1 {
+		color: var(--font-primary);
+	}
+
+	.persona__name p {
+		color: var(--font-secondary);
+	}
+
+	.gradient-border-circle {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		padding: 4px; /* space for the border */
+
+		background: linear-gradient(
+			134deg,
+			var(--avatar-circle-color-primary),
+			var(--avatar-circle-color-secondary)
+		);
+	}
+
 	@media (aspect-ratio > 1/1) {
 		.persona__body {
 			flex-direction: row;

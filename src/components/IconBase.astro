@@ -1,0 +1,42 @@
+---
+export interface Props {
+	title?: string; // accessible title; omit for decorative icons
+	viewBox?: string; // default 24x24
+	class?: string; // pass sizing/color classes from outside
+	strokeWidth?: number; // for stroke icons
+	stroke?: string; // defaults to currentColor
+	fill?: string; // defaults to 'none' (stroke icons)
+	attrs?: Record<string, any>; // for spreading extra attributes
+}
+
+const {
+	title,
+	viewBox = "0 0 24 24",
+	class: className = "",
+	strokeWidth,
+	stroke,
+	fill,
+	...rest
+} = Astro.props;
+
+const labelled = typeof title === "string" && title.length > 0;
+const titleId = labelled
+	? `icon-${Math.random().toString(36).slice(2)}`
+	: undefined;
+---
+
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	viewBox={viewBox}
+	class={className}
+	stroke={stroke}
+	fill={fill}
+	stroke-width={strokeWidth}
+	aria-hidden={labelled ? "false" : "true"}
+	role={labelled ? "img" : "presentation"}
+	aria-labelledby={labelled ? titleId : undefined}
+	{...rest}
+>
+	{labelled && <title id={titleId}>{title}</title>}
+	<slot />
+</svg>

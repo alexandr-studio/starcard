@@ -1,0 +1,12 @@
+---
+import { makeGoldQrSvg } from "@/lib/qrcode-gold";
+
+export interface Props {
+	value: string;
+}
+
+const { value } = Astro.props as Props;
+const qrCode = await makeGoldQrSvg(value);
+---
+
+<div class="qr-wrap" set:html={qrCode} />
