@@ -76,30 +76,20 @@ const icons = Object.fromEntries(
 </div>
 
 <style>
-	:root {
-		--background-fill-start: #1f3141;
-		--background-fill-end: #081219;
-		--background-stroke-start: #a7d9ff;
-		--background-stroke-end: #133a59;
-		--font-primary: #ffffff;
-		--font-secondary: #a5b3b7;
-		--avatar-circle-color-primary: rgba(47, 76, 100, 0.5);
-		--avatar-circle-color-secondary: rgba(95, 154, 202, 0.5);
-	}
 	.card {
-		color: var(--font-primary);
+		color: var(--color-font-primary);
 		border: 4px solid transparent;
 		background:
 			radial-gradient(
 					ellipse 80% 70% at 130% 65%,
-					var(--background-fill-start) 0%,
-					var(--background-fill-end) 100%
+					var(--color-background-fill-start) 0%,
+					var(--color-background-fill-end) 100%
 				)
 				padding-box,
 			radial-gradient(
 					ellipse 45% 70% at 130% 65%,
-					var(--background-stroke-start) 0%,
-					var(--background-stroke-end) 100%
+					var(--color-background-stroke-start) 0%,
+					var(--color-background-stroke-end) 100%
 				)
 				border-box;
 		background-repeat: no-repeat;

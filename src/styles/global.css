@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@theme {
+	--color-background-fill-start: #1f3141;
+	--color-background-fill-end: #081219;
+	--color-background-stroke-start: #a7d9ff;
+	--color-background-stroke-end: #133a59;
+	--color-font-primary: #ffffff;
+	--color-font-secondary: #a5b3b7;
+	--color-avatar-circle-primary: rgba(47, 76, 100, 0.5);
+	--color-avatar-circle-secondary: rgba(95, 154, 202, 0.5);
+	--color-separator-start: rgba(31, 49, 65, 0.2);
+	--color-separator-middle: #2f4c65;
+	--color-separator-end: rgba(31, 49, 65, 0.2);
+}
