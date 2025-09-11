@@ -1,4 +1,5 @@
 ---
+import Section from "@/components/Section.astro";
 import QRCode from "@/components/qrcode.astro";
 import Field from "@/components/Field.astro";
 import PhoneIcon from "@/components/icons/Phone.astro";
@@ -19,11 +20,9 @@ import { formatPhoneIntl } from "@/lib/phone";
 const phoneIntl = phone ? (formatPhoneIntl(phone) ?? phone) : null;
 ---
 
-<div
-	class="h-full flex flex-row flex-nowrap justify-center content-center items-center gap-12"
->
+<Section seperator={false}>
 	<div
-		class="w-[70%] flex flex-row flex-wrap justify-center content-center items-center gap-12"
+		class="w-full flex flex-row flex-wrap justify-start content-center items-start gap-12"
 	>
 		<div class="flex-1 flex flex-col justify-start gap-4">
 			{
@@ -74,8 +73,8 @@ const phoneIntl = phone ? (formatPhoneIntl(phone) ?? phone) : null;
 				)
 			}
 		</div>
-		<div class="self-end">
+		<div class="flex-1 self-end flex justify-center items-end">
 			<div class="size-32">{homePage && <QRCode value={homePage} />}</div>
 		</div>
 	</div>
-</div>
+</Section>

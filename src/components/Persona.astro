@@ -16,118 +16,93 @@ const avatarRoundedSize = {
 	xl: "5rem",
 	full: "99999rem",
 };
+
+const roundedSize = avatarRoundedSize[avatarRounded];
 ---
 
-<div class="persona h-full">
+<section
+	class="flex-1 flex flex-row flex-nowrap justify-center content-stretch items-center"
+>
 	<div
-		class="persona__body h-full flex flex-row flex-nowrap justify-start content-stretch items-start"
+		class="persona__body lg:px-[clamp(10%,15vw,50%)] flex-1 flex flex-row flex-nowrap justify-start content-center items-start gap-12"
 	>
-		<div class="persona__avatar flex items-center justify-end">
+		<div class="flex items-center justify-end">
 			{
 				avatarUrl && (
-					<div class="gradient-border-circle">
+					<div class="inline-flex items-center justify-center rounded-full overflow-hidden [background:linear-gradient(134deg,var(--avatar-circle-color-primary),var(--avatar-circle-color-secondary))]">
 						<img
 							src={avatarUrl}
 							alt={name}
-							class="aspect-square object-cover overflow-hidden"
+							class={`size-[max(16vh,25cqw)] max-h-[300px] max-w-[300px] min-h-[250px] min-w-[250px] rounded-[${roundedSize}] aspect-square object-cover`}
 						/>
 					</div>
 				)
 			}
 		</div>
-		<div class="persona__name flex items-center">
-			<div class="persona__name__content text-start">
+		<div class="persona__text flex">
+			<div>
 				<h1
-					class="mt-4 leading-none font-bold tracking-tight text-font-primary"
+					class="persona__name mt-4 leading-[1.2] font-medium lg:font-bold tracking-tight text-font-primary"
 				>
 					{name}
 				</h1>
-				<p class="mt-4 leading-none font-light text-font-secondary">
+				<p
+					class="persona__title mt-4 eading-[1.2] font-light text-font-secondary"
+				>
 					{title}
 				</p>
 			</div>
 		</div>
 	</div>
-</div>
 
-<style define:vars={{ roundedSize: avatarRoundedSize[avatarRounded] }}>
-	.gradient-border-circle {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		border-radius: 50%;
-		padding: 4px; /* space for the border */
-
-		background: linear-gradient(
-			134deg,
-			var(--avatar-circle-color-primary),
-			var(--avatar-circle-color-secondary)
-		);
-	}
-
-	@media (aspect-ratio > 1/1) {
-		.persona__body {
-			flex-direction: row;
-			gap: 5rem;
-		}
-		.persona__avatar {
-			flex: 1 1 35%;
-			align-self: center;
-			max-width: 35%;
-		}
-		.persona__avatar img {
-			height: clamp(18vh, 25cqw, 20vh);
-			width: clamp(18vh, 25cqw, 20vh);
-			border-radius: var(--roundedSize);
-		}
+	<style>
 		.persona__name {
-			flex: 3 1 65%;
-			align-self: center;
-			justify-content: flex-start;
-		}
-		.persona__name h1 {
-			font-size: clamp(1.75rem, 8cqw, 4rem);
-		}
-		.persona__name p {
-			font-size: clamp(1rem, 2.5cqw, 1.25rem);
-		}
-	}
-
-	@media (aspect-ratio <= 1/1) {
-		.persona__body {
-			flex-direction: column;
-			justify-content: center;
-			align-content: stretch;
-			align-items: center;
-			gap: 2rem;
+			word-spacing: 1rem;
 		}
 
-		.persona__avatar {
-			flex: 0 1 auto;
-			align-self: center;
+		@media (aspect-ratio > 1/1) {
+			.persona__body {
+				flex-direction: row;
+				justify-content: center;
+				align-items: center;
+				gap: 5rem;
+				padding-top: 2rem;
+				padding-bottom: 2rem;
+				box-sizing: border-box;
+			}
+			.persona__name {
+				font-size: clamp(1.75rem, 8cqw, 3rem);
+			}
+			.persona__title {
+				font-size: clamp(1.25rem, 2.5cqw, 2rem);
+			}
+
+			.persona__text {
+				text-align: left;
+				justify-content: center;
+			}
 		}
 
-		.persona__avatar img {
-			height: clamp(18vh, 25cqw, 20vh);
-			width: clamp(18vh, 25cqw, 20vh);
-			border-radius: var(--roundedSize);
-		}
+		@media (aspect-ratio <= 1/1) {
+			.persona__body {
+				flex-direction: column;
+				justify-content: center;
+				align-content: stretch;
+				align-items: center;
+				gap: 2rem;
+				padding: clamp(1.25rem, 2.5cqw, 1.75rem);
+			}
 
-		.persona__name {
-			flex: 0 1 auto;
-			align-self: center;
-			justify-content: center;
-		}
+			.persona__text {
+				text-align: center;
+			}
 
-		.persona__name__content {
-			text-align: center;
+			.persona__name {
+				font-size: clamp(2rem, 6cqw, 2.5rem);
+			}
+			.persona__title {
+				font-size: clamp(1.25rem, 2.5cqw, 1.75rem);
+			}
 		}
-
-		.persona__name h1 {
-			font-size: clamp(2.5rem, 6cqw, 3.5rem);
-		}
-		.persona__name p {
-			font-size: clamp(1.25rem, 2.5cqw, 1.25rem);
-		}
-	}
-</style>
+	</style>
+</section>
