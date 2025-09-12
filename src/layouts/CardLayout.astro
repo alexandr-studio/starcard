@@ -3,32 +3,15 @@
 ---
 
 <div
-	class="card h-[100vh] w-[100vw] overflow-scroll text-font-primary flex flex-col flex-nowrap gap-20 p-12"
+	class="card__wrapper flex-1 flex flex-col flex-nowrap justify-center items-stretch content-stretch overflow-hidden p-1 bg-[radial-gradient(ellipse_45%_70%_at_130%_65%,var(--color-background-stroke-start)_0%,var(--color-background-stroke-end)_100%)]"
 >
-	<slot />
+	<div
+		class="card__body text-font-primary overflow-auto flex-1 flex flex-col flex-nowrap gap-20 p-12 bg-[radial-gradient(ellipse_80%_70%_at_130%_65%,var(--color-background-fill-start)_0%,var(--color-background-fill-end)_100%)]"
+	>
+		<slot />
 
-	<footer class="text-center text-sm opacity-30">
-		© {new Date().getFullYear()} Alexander Sedeke
-	</footer>
+		<footer class="text-center text-sm opacity-30">
+			© {new Date().getFullYear()} Alexander Sedeke
+		</footer>
+	</div>
 </div>
-
-<style>
-	.card {
-		border: 4px solid transparent;
-		background:
-			radial-gradient(
-					ellipse 80% 70% at 130% 65%,
-					var(--color-background-fill-start) 0%,
-					var(--color-background-fill-end) 100%
-				)
-				padding-box,
-			radial-gradient(
-					ellipse 45% 70% at 130% 65%,
-					var(--color-background-stroke-start) 0%,
-					var(--color-background-stroke-end) 100%
-				)
-				border-box;
-		background-repeat: no-repeat;
-		box-sizing: border-box;
-	}
-</style>

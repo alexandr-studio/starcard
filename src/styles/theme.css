@@ -13,3 +13,16 @@
 	--color-separator-middle: #2f4c65;
 	--color-separator-end: rgba(31, 49, 65, 0.2);
 }
+
+html,
+body {
+	margin: 0;
+	width: 100dvw;
+	height: 100dvh;
+	font-family: var(--font-plus-jakarta-sans);
+	background-color: var(--color-background-fill-start);
+}
+
+* {
+	box-sizing: border-box;
+}

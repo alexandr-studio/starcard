@@ -19,10 +19,10 @@ const { title, seperator = true } = Astro.props as Props;
 		{
 			title && (
 				<div class="w-full lg:w-[80%] flex flex-row flex-nowrap justify-start content-center items-center gap-8">
-					<div class="size-8 text-font-secondary pt-1">
+					<div class="size-6 md:size-8 text-font-secondary pt-1">
 						<slot name="icon" />
 					</div>
-					<h2 class="text-4xl font-normal">{title}</h2>
+					<h2 class="text-2xl md:text-4xl font-normal">{title}</h2>
 				</div>
 			)
 		}

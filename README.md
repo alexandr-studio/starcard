@@ -44,3 +44,15 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## To Do
+
+[ ] Show full url colored on wide screen
+[ ] Show QR-code popover on mobile
+[ ] Reshufle the section blocks on wide screen
+[ ] Add icons for possible links like masterdon etc.
+[ ] Create a theme from it
+[ ] Add vCard QRCode
+[ ] Deploy to my domain
+[ ] Write documentation
+[ ] Publish
