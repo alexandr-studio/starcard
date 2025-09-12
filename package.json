@@ -1,7 +1,33 @@
 {
-	"name": "alexandr.codes",
+	"name": "starcard",
+	"version": "1.0.0",
 	"type": "module",
-	"version": "0.0.1",
+	"description": "Starcard – an Astro theme for personal identity cards with QR contact sharing.",
+	"author": {
+		"name": "Alexander Sedeke",
+		"email": "alexandr@studio",
+		"url": "https://alexandr.studio"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/alexandr-studio/starcard.git"
+	},
+	"bugs": {
+		"url": "https://github.com/alexandr-studio/starcard/issues"
+	},
+	"homepage": "https://alexandr.studio/projects/starcard",
+	"keywords": [
+		"astro",
+		"astro-theme",
+		"astro-template",
+		"starcard",
+		"profile",
+		"vcard",
+		"qr-code",
+		"identity",
+		"contact"
+	],
 	"scripts": {
 		"dev": "astro dev --host",
 		"build": "astro build",
