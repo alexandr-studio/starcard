@@ -16,6 +16,7 @@ export interface Props {
 	email?: string;
 	homePage?: string;
 	location?: string;
+	vcard?: boolean;
 	profile?: {
 		firstName: string;
 		middleName?: string;
@@ -28,8 +29,9 @@ export interface Props {
 	};
 }
 
-const { phone, email, homePage, location, profile } = Astro.props as Props;
-const vcard = profile ? buildVCard(profile, "3.0") : null;
+const { phone, email, homePage, location, profile, vcard } =
+	Astro.props as Props;
+const vcardString = profile ? buildVCard(profile, "3.0") : null;
 const phoneIntl = phone ? (formatPhoneIntl(phone) ?? phone) : null;
 ---
 
@@ -95,7 +97,13 @@ const phoneIntl = phone ? (formatPhoneIntl(phone) ?? phone) : null;
 					<button type="button" class="w-36 cursor-pointer" data-open-dialog>
 						<VcardIcon />
 					</button>
-					<LinkDialog value={vcard} isLink={false} title="vCard" />
+					{vcardString && vcard && (
+						<LinkDialog
+							value={vcardString}
+							isLink={false}
+							title="Scan to save contact"
+						/>
+					)}
 				</div>
 			)
 		}

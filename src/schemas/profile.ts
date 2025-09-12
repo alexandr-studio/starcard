@@ -46,6 +46,7 @@ export const ProfileSchema = z.object({
 	phone: z.string().optional(),
 	homePage: z.string().url().optional(),
 	location: z.string().optional(),
+	vcard: z.boolean().default(false),
 	sections: z.array(SectionSchema).optional(),
 	legal: LegalSchema.optional(),
 });

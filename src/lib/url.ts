@@ -7,3 +7,11 @@ export function formatUrlPath(url: string, { stripLeadingSlash = false } = {}) {
 		return url;
 	}
 }
+
+export function fmtUrlHostname(url: string) {
+	try {
+		return new URL(url).hostname;
+	} catch {
+		return url;
+	}
+}

@@ -1,5 +1,6 @@
 ---
 import LinkDialog from "@/components/LinkDialog.astro";
+import { formatUrlPath, fmtUrlHostname } from "@/lib/url";
 
 export interface Props {
 	href: string;
@@ -7,14 +8,6 @@ export interface Props {
 	target?: string;
 }
 const { href, label, target = "_blank" } = Astro.props as Props;
-
-function fmt(u: string) {
-	try {
-		return new URL(u).hostname;
-	} catch {
-		return u;
-	}
-}
 ---
 
 <touch-link href={href} target={target}>
@@ -26,7 +19,16 @@ function fmt(u: string) {
 		rel={target === "_blank" ? "noopener noreferrer" : undefined}
 		class="cursor-pointer hover:opacity-80"
 	>
-		{label ?? fmt(href)}
+		{
+			label ?? (
+				<>
+					<span class="hidden md:inline text-font-secondary">
+						{fmtUrlHostname(href)}
+					</span>
+					<span class="font-font-primary">{formatUrlPath(href)}</span>
+				</>
+			)
+		}
 	</a>
 
 	<LinkDialog value={href} title={href} />

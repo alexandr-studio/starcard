@@ -10,6 +10,7 @@
 	"phone": "+420777123456",
 	"homePage": "https://alexandr.codes",
 	"location": "Prague, Czech Republic",
+	"vcard": true,
 	"sections": [
 		{
 			"order": 1,

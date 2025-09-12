@@ -6,7 +6,6 @@ import Section from "@/components/Section.astro";
 import Field from "@/components/Field.astro";
 import LegalSection from "@/components/LegalSection.astro";
 import { validatedProfile as profile } from "@/lib/validateProfile";
-import { formatUrlPath } from "@/lib/url";
 import TouchLink from "@/components/TouchLink.astro";
 import type { LegalField } from "@/components/LegalSection.astro";
 
@@ -52,6 +51,7 @@ const vCardProfile = {
 		homePage={profile.homePage}
 		location={profile.location}
 		profile={vCardProfile}
+		vcard={profile.vcard}
 	/>
 	{
 		profile.sections?.map((section) => {
@@ -66,12 +66,7 @@ const vCardProfile = {
 								const Icon = icons[item.icon?.toLowerCase() ?? ""] ?? null;
 								return (
 									<Field>
-										{item.url && (
-											<TouchLink
-												href={item.url}
-												label={formatUrlPath(item.url ?? "")}
-											/>
-										)}
+										{item.url && <TouchLink href={item.url} />}
 										{Icon && (
 											<span slot="icon">
 												<Icon title={item.url ?? ""} />
