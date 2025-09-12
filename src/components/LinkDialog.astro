@@ -2,11 +2,19 @@
 import QRcode from "@/components/QRcode.astro";
 
 interface Props {
-	url: string;
+	value: string;
+	isLink?: boolean;
+	title?: string;
 	openText?: string;
 	cancelText?: string;
 }
-const { url, openText = "Open", cancelText = "Close" } = Astro.props as Props;
+const {
+	value,
+	isLink = true,
+	title,
+	openText = "Open",
+	cancelText = "Close",
+} = Astro.props as Props;
 ---
 
 <dialog
@@ -15,10 +23,16 @@ const { url, openText = "Open", cancelText = "Close" } = Astro.props as Props;
 	<div class="space-y-4">
 		<div class="flex justify-center">
 			<div class="w-[50vw] h-[50vw] min-h-[300px] min-w-[300px]">
-				<QRcode value={url} />
+				<QRcode value={value} />
 			</div>
 		</div>
-		<p class="text-[2vh] text-font-primary break-all text-center px-2">{url}</p>
+		{
+			title && (
+				<p class="text-[2vh] text-font-primary break-all text-center px-2">
+					{title}
+				</p>
+			)
+		}
 		<div class="flex justify-between gap-3 px-8 py-4">
 			<button
 				type="button"
@@ -26,14 +40,18 @@ const { url, openText = "Open", cancelText = "Close" } = Astro.props as Props;
 			>
 				{cancelText}
 			</button>
-			<a
-				href={url}
-				target="_blank"
-				rel="noopener noreferrer"
-				class="open-btn cursor-pointer px-10 py-4 rounded-lg bg-qr-gold-start font-bold text-background-fill-end hover:bg-qr-gold-end transition-colors"
-			>
-				{openText}
-			</a>
+			{
+				isLink && (
+					<a
+						href={value}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="open-btn cursor-pointer px-10 py-4 rounded-lg bg-qr-gold-start font-bold text-background-fill-end hover:bg-qr-gold-end transition-colors"
+					>
+						{openText}
+					</a>
+				)
+			}
 		</div>
 	</div>
 </dialog>

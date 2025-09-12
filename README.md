@@ -48,7 +48,7 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 ## To Do
 
 [ ] Show full url colored on wide screen
-[ ] Show QR-code popover on mobile
+[x] Show QR-code popover on mobile
 [ ] Reshufle the section blocks on wide screen
 [ ] Add icons for possible links like masterdon etc.
 [ ] Create a theme from it

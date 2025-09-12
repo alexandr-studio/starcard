@@ -20,11 +20,22 @@ const icons = Object.fromEntries(
 		return [name.toLowerCase(), (mod as any).default];
 	})
 );
+
+const vCardProfile = {
+	firstName: profile.firstName,
+	middleName: profile.middleName,
+	lastName: profile.lastName,
+	title: profile.title,
+	email: profile.email,
+	phone: profile.phone,
+	homePage: profile.homePage,
+	location: profile.location,
+};
 ---
 
 <Layout>
 	<Persona
-		name={profile.fullname}
+		name={profile.displayName}
 		title={profile.title}
 		avatarUrl={profile.avatarUrl}
 		avatarRounded={profile.avatarRounded as
@@ -40,6 +51,7 @@ const icons = Object.fromEntries(
 		email={profile.email}
 		homePage={profile.homePage}
 		location={profile.location}
+		profile={vCardProfile}
 	/>
 	{
 		profile.sections?.map((section) => {

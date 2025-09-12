@@ -5,21 +5,24 @@ import { safeValidateProfile } from "../schemas/profile.js";
 
 // Example of valid profile data
 const validProfile = {
-	fullname: "Alexander Sedeke", // Required field
+	displayName: "Alexander Sedeke", // Required field
+	firstName: "Alexander",
+	lastName: "Sedeke",
+	middleName: "",
 	title: "Full-stack Developer",
 	email: "alexandr@alexandr.codes",
 };
 
-// Example of invalid profile data (missing required fullname)
+// Example of invalid profile data (missing required displayName)
 const invalidProfile = {
 	title: "Full-stack Developer",
 	email: "alexandr@alexandr.codes",
-	// Missing required 'fullname' field
+	// Missing required 'displayName' field
 };
 
 // Example of profile with invalid email
 const invalidEmailProfile = {
-	fullname: "Alexander Sedeke",
+	displayName: "Alexander Sedeke",
 	email: "not-a-valid-email", // Invalid email format
 };
 
@@ -27,7 +30,7 @@ console.log("Testing valid profile:");
 const validResult = safeValidateProfile(validProfile);
 console.log("Valid:", validResult.success);
 
-console.log("\nTesting invalid profile (missing fullname):");
+console.log("\nTesting invalid profile (missing displayName):");
 const invalidResult = safeValidateProfile(invalidProfile);
 console.log("Valid:", invalidResult.success);
 if (!invalidResult.success) {
@@ -48,4 +51,3 @@ if (!invalidEmailResult.success) {
 		)
 	);
 }
-

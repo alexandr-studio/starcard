@@ -1,22 +1,35 @@
 ---
 import Section from "@/components/Section.astro";
 import QRCode from "@/components/QRcode.astro";
+import LinkDialog from "@/components/LinkDialog.astro";
 import Field from "@/components/Field.astro";
 import PhoneIcon from "@/components/icons/Phone.astro";
 import EmailIcon from "@/components/icons/Email.astro";
 import WebsiteIcon from "@/components/icons/Web.astro";
 import LocationIcon from "@/components/icons/Location.astro";
+import VcardIcon from "@/components/icons/Vcard.astro";
+import { formatPhoneIntl } from "@/lib/phone";
+import { buildVCard, vcardDataUrl, type Profile } from "@/lib/vcard";
 
 export interface Props {
 	phone?: string;
 	email?: string;
 	homePage?: string;
 	location?: string;
+	profile?: {
+		firstName: string;
+		middleName?: string;
+		lastName: string;
+		title?: string;
+		email?: string;
+		phone?: string;
+		homePage?: string;
+		location?: string;
+	};
 }
 
-const { phone, email, homePage, location } = Astro.props as Props;
-
-import { formatPhoneIntl } from "@/lib/phone";
+const { phone, email, homePage, location, profile } = Astro.props as Props;
+const vcard = profile ? buildVCard(profile, "3.0") : null;
 const phoneIntl = phone ? (formatPhoneIntl(phone) ?? phone) : null;
 ---
 
@@ -73,8 +86,45 @@ const phoneIntl = phone ? (formatPhoneIntl(phone) ?? phone) : null;
 				)
 			}
 		</div>
-		<div class="flex-1 self-end flex justify-center items-end">
-			<div class="size-32">{homePage && <QRCode value={homePage} />}</div>
-		</div>
+		{
+			vcard && (
+				<div
+					class="flex-1 self-end flex justify-center items-end"
+					data-dialog-scope
+				>
+					<button type="button" class="w-36 cursor-pointer" data-open-dialog>
+						<VcardIcon />
+					</button>
+					<LinkDialog value={vcard} isLink={false} title="vCard" />
+				</div>
+			)
+		}
 	</div>
 </Section>
+<script is:inline>
+	(() => {
+		if (window.__DIALOG_DELEGATE_BOUND__) return;
+		window.__DIALOG_DELEGATE_BOUND__ = true;
+
+		document.addEventListener(
+			"click",
+			function (ev) {
+				const target = ev.target;
+				const btn =
+					target && target.closest
+						? target.closest("[data-open-dialog]")
+						: null;
+				if (!btn) return;
+
+				const scope = btn.closest("[data-dialog-scope]");
+				const dlg = scope ? scope.querySelector("dialog") : null;
+
+				if (dlg && typeof dlg.showModal === "function") {
+					ev.preventDefault();
+					dlg.showModal();
+				}
+			},
+			{ passive: false }
+		);
+	})();
+</script>

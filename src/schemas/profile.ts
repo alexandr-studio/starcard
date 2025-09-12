@@ -32,8 +32,11 @@ const LegalSchema = z.object({
 
 // Main profile schema
 export const ProfileSchema = z.object({
-	// Required field - only fullname is required
-	fullname: z.string().min(1, "Full name is required"),
+	// Required field - only displayName is required
+	displayName: z.string().min(1, "Full name is required"),
+	firstName: z.string().min(1, "First name is required"),
+	middleName: z.string().optional(),
+	lastName: z.string().min(1, "Last name is required"),
 
 	// Optional fields
 	title: z.string().optional(),
@@ -59,4 +62,3 @@ export function validateProfile(data: unknown): Profile {
 export function safeValidateProfile(data: unknown) {
 	return ProfileSchema.safeParse(data);
 }
-
