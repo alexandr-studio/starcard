@@ -12,6 +12,8 @@
 	--color-separator-start: rgba(31, 49, 65, 0.2);
 	--color-separator-middle: #2f4c65;
 	--color-separator-end: rgba(31, 49, 65, 0.2);
+	--color-qr-gold-start: #d8c59c;
+	--color-qr-gold-end: #a98e6f;
 }
 
 html,

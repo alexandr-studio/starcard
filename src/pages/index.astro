@@ -7,6 +7,7 @@ import Field from "@/components/Field.astro";
 import LegalSection from "@/components/LegalSection.astro";
 import { validatedProfile as profile } from "@/lib/validateProfile";
 import { formatUrlPath } from "@/lib/url";
+import TouchLink from "@/components/TouchLink.astro";
 import type { LegalField } from "@/components/LegalSection.astro";
 
 const iconModules = import.meta.glob("../components/icons/*.astro", {
@@ -53,9 +54,12 @@ const icons = Object.fromEntries(
 								const Icon = icons[item.icon?.toLowerCase() ?? ""] ?? null;
 								return (
 									<Field>
-										<a target="_blank" href={item.url} title={item.url}>
-											{formatUrlPath(item.url ?? "")}
-										</a>
+										{item.url && (
+											<TouchLink
+												href={item.url}
+												label={formatUrlPath(item.url ?? "")}
+											/>
+										)}
 										{Icon && (
 											<span slot="icon">
 												<Icon title={item.url ?? ""} />

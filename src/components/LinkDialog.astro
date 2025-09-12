@@ -1,0 +1,104 @@
+---
+import QRcode from "@/components/QRcode.astro";
+
+interface Props {
+	url: string;
+	openText?: string;
+	cancelText?: string;
+}
+const { url, openText = "Open", cancelText = "Close" } = Astro.props as Props;
+---
+
+<dialog
+	class="link-dialog rounded-xl bg-background-stroke-end p-6 backdrop:bg-black/50 backdrop:backdrop-blur-sm border border-background-stroke-end shadow-xl"
+>
+	<div class="space-y-4">
+		<div class="flex justify-center">
+			<div class="w-[50vw] h-[50vw] min-h-[300px] min-w-[300px]">
+				<QRcode value={url} />
+			</div>
+		</div>
+		<p class="text-[2vh] text-font-primary break-all text-center px-2">{url}</p>
+		<div class="flex justify-between gap-3 px-8 py-4">
+			<button
+				type="button"
+				class="cancel-btn cursor-pointer px-10 py-4 rounded-lg text-font-secondary hover:text-font-primary bg-background-fill-end hover:bg-background-fill-start border-background-fill-start hover:border-background-fill-end transition-colors"
+			>
+				{cancelText}
+			</button>
+			<a
+				href={url}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="open-btn cursor-pointer px-10 py-4 rounded-lg bg-qr-gold-start font-bold text-background-fill-end hover:bg-qr-gold-end transition-colors"
+			>
+				{openText}
+			</a>
+		</div>
+	</div>
+</dialog>
+
+<style>
+	/* Hidden by default (dialog UA stylesheet sets display:none until [open]) */
+	.link-dialog {
+		/* keep inert until opened */
+		opacity: 0;
+		transform: translate(-50%, -48%) scale(0.98);
+		transition:
+			opacity 160ms ease,
+			transform 160ms ease;
+		/* prevent accidental intercepts before open */
+		pointer-events: none;
+	}
+
+	/* When opened, center and enable interaction */
+	.link-dialog[open] {
+		position: fixed;
+		margin: 0;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%) scale(1);
+		opacity: 1;
+		pointer-events: auto;
+		display: flex; /* layout while open */
+		flex-direction: column;
+		justify-content: center;
+		align-items: stretch;
+	}
+
+	/* Backdrop fade (supported where ::backdrop is animatable) */
+	.link-dialog::backdrop {
+		transition:
+			opacity 160ms ease,
+			backdrop-filter 160ms ease;
+	}
+</style>
+
+<script is:inline>
+	// Wire up each dialog instance on connect
+	(() => {
+		const dlg = document.currentScript?.previousElementSibling;
+		if (!(dlg instanceof HTMLDialogElement)) return;
+
+		const cancelBtn = dlg.querySelector(".cancel-btn");
+		const openBtn = dlg.querySelector(".open-btn");
+
+		cancelBtn?.addEventListener("click", () => dlg.close());
+
+		// Click outside (backdrop) to close
+		dlg.addEventListener("click", (e) => {
+			const rect = dlg.getBoundingClientRect();
+			const inside =
+				e.clientY >= rect.top &&
+				e.clientY <= rect.bottom &&
+				e.clientX >= rect.left &&
+				e.clientX <= rect.right;
+			if (!inside) dlg.close();
+		});
+
+		// After following the link, close shortly (lets target open in new tab)
+		openBtn?.addEventListener("click", () => {
+			setTimeout(() => dlg.close(), 80);
+		});
+	})();
+</script>

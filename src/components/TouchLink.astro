@@ -1,0 +1,138 @@
+---
+import LinkDialog from "@/components/LinkDialog.astro";
+
+export interface Props {
+	href: string;
+	label?: string;
+	target?: string;
+}
+const { href, label, target = "_blank" } = Astro.props as Props;
+
+function fmt(u: string) {
+	try {
+		return new URL(u).hostname;
+	} catch {
+		return u;
+	}
+}
+---
+
+<touch-link href={href} target={target}>
+	<a
+		href={href}
+		data-href={href}
+		title={href}
+		target={target}
+		rel={target === "_blank" ? "noopener noreferrer" : undefined}
+		class="cursor-pointer hover:opacity-80"
+	>
+		{label ?? fmt(href)}
+	</a>
+
+	<LinkDialog url={href} />
+</touch-link>
+
+<script is:inline>
+	(() => {
+		if (customElements.get("touch-link")) return;
+
+		class TouchLink extends HTMLElement {
+			/** @type {HTMLAnchorElement|null} */ link = null;
+			/** @type {HTMLDialogElement|null} */ dialog = null;
+			/** @type {MutationObserver|null} */ mo = null;
+			/** @type {boolean} */ isTouch = false;
+			/** @type {boolean} */ bound = false;
+
+			connectedCallback() {
+				// compute once
+				this.isTouch =
+					window.__HAS_TOUCH__ !== undefined
+						? window.__HAS_TOUCH__
+						: "ontouchstart" in window ||
+							navigator.maxTouchPoints > 0 ||
+							(navigator.msMaxTouchPoints ?? 0) > 0;
+
+				// try immediate bind; if not ready, observe until children appear
+				this.tryBind();
+				if (!this.bound) {
+					this.mo = new MutationObserver(() => this.tryBind());
+					this.mo.observe(this, { childList: true, subtree: true });
+				}
+			}
+
+			disconnectedCallback() {
+				this.unbind();
+				this.mo?.disconnect();
+				this.mo = null;
+			}
+
+			tryBind() {
+				if (this.bound) return;
+
+				this.link = this.querySelector("a");
+				this.dialog = this.querySelector("dialog");
+
+				if (!this.link || !this.dialog) return; // not ready yet
+
+				// Touch: convert link into a button-like trigger (no navigation)
+				if (this.isTouch) {
+					const url =
+						this.link.getAttribute("data-href") ||
+						this.link.getAttribute("href") ||
+						"#";
+					this.link.setAttribute("data-href", url);
+					this.link.removeAttribute("href");
+					this.link.removeAttribute("target");
+					this.link.removeAttribute("rel");
+					this.link.setAttribute("role", "button");
+					this.link.setAttribute("tabindex", "0");
+
+					this.onClick = (e) => {
+						e.preventDefault();
+						if (this.dialog && typeof this.dialog.showModal === "function")
+							this.dialog.showModal();
+					};
+					this.onKey = (e) => {
+						if (e.key === "Enter" || e.key === " ") {
+							e.preventDefault();
+							this.onClick(e);
+						}
+					};
+					this.link.addEventListener("click", this.onClick, { passive: false });
+					this.link.addEventListener("keydown", this.onKey);
+				} else {
+					// Desktop: ensure normal navigation (restore href if missing)
+					const url =
+						this.link.getAttribute("data-href") ||
+						this.getAttribute("href") ||
+						this.link.getAttribute("href") ||
+						"#";
+					this.link.setAttribute("href", url);
+					const target = this.getAttribute("target") || "_blank";
+					if (target) {
+						this.link.setAttribute("target", target);
+						if (target === "_blank")
+							this.link.setAttribute("rel", "noopener noreferrer");
+					}
+				}
+
+				this.bound = true;
+				this.mo?.disconnect();
+				this.mo = null;
+			}
+
+			unbind() {
+				if (this.link && this.onClick)
+					this.link.removeEventListener("click", this.onClick);
+				if (this.link && this.onKey)
+					this.link.removeEventListener("keydown", this.onKey);
+				this.bound = false;
+			}
+
+			onClick = null;
+			onKey = null;
+		}
+
+		customElements.define("touch-link", TouchLink);
+	})();
+</script>
