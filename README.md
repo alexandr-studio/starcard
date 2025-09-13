@@ -1,59 +1,98 @@
-# Astro Starter Kit: Basics
+# Starcard – an Astro template for personal identity cards
+
+Starcard is a reusable Astro template for a minimalist personal identity card with QR contact sharing and vCard support. It is configured via your Astro config, similar to Starlight.
+
+## Quick start
 
 ```sh
-pnpm create astro@latest -- --template basics
+pnpm install
+pnpm dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Configure via astro.config
 
-## 🚀 Project Structure
+Add the Starcard integration and provide your site meta, footer text, and profile. You can keep everything in one place in `astro.config.mjs` (or `.ts`).
 
-Inside of your Astro project, you'll see the following folders and files:
+```ts
+import { defineConfig, fontProviders } from "astro/config";
+import sitemap from "@astrojs/sitemap";
+import starcard from "./src/integrations/starcard.js";
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+export default defineConfig({
+	site: "https://example.com",
+	integrations: [
+		sitemap(),
+		starcard({
+			meta: {
+				title: "Your Name",
+				description: "Short bio or tagline",
+				keywords: ["profile", "vcard", "portfolio"],
+				favicon: "/favicon.svg",
+			},
+			footer: { text: "© 2025 Your Name" },
+			profile: {
+				displayName: "Your Name",
+				firstName: "Your",
+				lastName: "Name",
+				title: "Full‑stack Developer",
+				email: "you@example.com",
+				phone: "+123456789",
+				homePage: "https://example.com",
+				location: "City, Country",
+				vcard: true,
+				sections: [
+					{
+						order: 1,
+						id: "socials",
+						title: "Socials",
+						icon: "social",
+						items: [
+							{ id: "github", icon: "github", url: "https://github.com/you" },
+						],
+					},
+				],
+				legal: {
+					title: "Legal",
+					items: [{ order: 1, id: "vatid", title: "VAT ID", value: "CZ..." }],
+				},
+			},
+		}),
+	],
+	experimental: {
+		fonts: [
+			{
+				provider: fontProviders.google(),
+				name: "Plus Jakarta Sans",
+				cssVariable: "--font-plus-jakarta-sans",
+				weights: [200, 300, 400, 500, 600, 700, 800, 900],
+			},
+		],
+	},
+});
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## How it works
 
-## 🧞 Commands
+- The integration validates your configuration with Zod and exposes a virtual module: `virtual:starcard/config`.
+- Components and pages import from that module to render your profile and metadata.
+- `Layout.astro` sets `<title>`, description, keywords, canonical, Open Graph, and Twitter tags using your meta config. Favicon is also configurable.
+- `index.astro` renders your profile (Persona, Info, sections, legal). Sections and items are rendered in ascending `order`.
 
-All commands are run from the root of the project, from a terminal:
+## Customization
 
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `pnpm install`         | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+- Replace `public/favicon.svg` or set `meta.favicon` in config.
+- Add or edit icons in `src/components/icons/` and refer to them by filename (lowercase) in your profile items.
+- Update colors via CSS variables in `src/styles/theme.css` or extend Tailwind.
 
-## 👀 Want to learn more?
+## Deploy
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```sh
+pnpm build
+pnpm preview
+```
 
-## To Do
+Deploy the `dist/` folder to your host (e.g., Netlify, Vercel, GitHub Pages). Ensure `site` is set in `astro.config` for correct sitemap and canonical URLs.
 
-[x] Show full url colored on wide screen
-[x] Show QR-code popover on mobile
-[x] Add vCard QRCode
-[?] Reshufle the section blocks on wide screen
-[ ] Add icons for possible links like masterdon etc.
-[ ] Create a theme from it
+## License
 
-[ ] Deploy to my domain
-[ ] Write documentation
-[ ] Publish
+MIT

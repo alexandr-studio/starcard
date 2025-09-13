@@ -5,11 +5,11 @@ import Info from "@/components/Info.astro";
 import Section from "@/components/Section.astro";
 import Field from "@/components/Field.astro";
 import LegalSection from "@/components/LegalSection.astro";
-import { validatedProfile as profile } from "@/lib/validateProfile";
 import TouchLink from "@/components/TouchLink.astro";
 import type { LegalField } from "@/components/LegalSection.astro";
+import { site } from "virtual:starcard/config";
 
-const iconModules = import.meta.glob("../components/icons/*.astro", {
+const iconModules = import.meta.glob("@/components/icons/*.astro", {
 	eager: true,
 });
 // normalize keys: "@/components/icons/linkedin.astro" → "linkedin"
@@ -20,6 +20,7 @@ const icons = Object.fromEntries(
 	})
 );
 
+const profile = site.profile;
 const vCardProfile = {
 	firstName: profile.firstName,
 	middleName: profile.middleName,
@@ -54,32 +55,36 @@ const vCardProfile = {
 		vcard={profile.vcard}
 	/>
 	{
-		profile.sections?.map((section) => {
-			const SectionIcon = icons[section.icon?.toLowerCase() ?? ""] ?? null;
+		profile.sections
+			?.slice()
+			.sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+			.map((section) => {
+				const SectionIcon = icons[section.icon?.toLowerCase() ?? ""] ?? null;
 
-			return (
-				<Section title={section.title}>
-					{SectionIcon && <SectionIcon slot="icon" title={section.title} />}
-					<div class="flex flex-col flex-nowrap gap-4">
-						{section.items
-							?.map((item) => {
-								const Icon = icons[item.icon?.toLowerCase() ?? ""] ?? null;
-								return (
-									<Field>
-										{item.url && <TouchLink href={item.url} />}
-										{Icon && (
-											<span slot="icon">
-												<Icon title={item.url ?? ""} />
-											</span>
-										)}
-									</Field>
-								);
-							})
-							.sort((a, b) => a.order - b.order)}
-					</div>
-				</Section>
-			);
-		})
+				return (
+					<Section title={section.title}>
+						{SectionIcon && <SectionIcon slot="icon" title={section.title} />}
+						<div class="flex flex-col flex-nowrap gap-4">
+							{section.items
+								?.slice()
+								.sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+								.map((item) => {
+									const Icon = icons[item.icon?.toLowerCase() ?? ""] ?? null;
+									return (
+										<Field>
+											{item.url && <TouchLink href={item.url} />}
+											{Icon && (
+												<span slot="icon">
+													<Icon title={item.url ?? ""} />
+												</span>
+											)}
+										</Field>
+									);
+								})}
+						</div>
+					</Section>
+				);
+			})
 	}
 	{
 		profile.legal && (

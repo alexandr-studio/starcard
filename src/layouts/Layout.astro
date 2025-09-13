@@ -1,10 +1,13 @@
 ---
 import "../styles/theme.css";
 import { Font } from "astro:assets";
-import { SEO } from "astro-seo";
-import CardLayout from "@/layouts/CardLayout.astro";
-const { title = "Alexandr Codes", description = "Alexandr Codes profile" } =
-	Astro.props;
+import { site } from "virtual:starcard/config";
+const {
+	title = site?.meta?.title,
+	description = site?.meta?.description,
+	keywords = site?.meta?.keywords?.join(", "),
+	favicon = site?.meta?.favicon ?? "/favicon.svg",
+} = Astro.props;
 ---
 
 <html lang="en">
@@ -14,41 +17,38 @@ const { title = "Alexandr Codes", description = "Alexandr Codes profile" } =
 			name="viewport"
 			content="width=device-width, initial-scale=1, viewport-fit=cover"
 		/>
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href={favicon} />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-		<link rel="sitemap" href="/sitemap-index.xml" />
+		<meta name="keywords" content={keywords} />
+		<meta name="description" content={description} />
+		<link
+			rel="canonical"
+			href={Astro.site
+				? new URL(Astro.url.pathname, Astro.site).toString()
+				: undefined}
+		/>
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		{
+			Astro.site && (
+				<meta
+					property="og:url"
+					content={new URL(Astro.url.pathname, Astro.site).toString()}
+				/>
+			)
+		}
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
 
 		<Font cssVariable="--font-plus-jakarta-sans" preload />
-		<SEO
-			title="A Very Descriptive Title"
-			description="A heavily optimized description full of well-researched keywords."
-			openGraph={{
-				basic: {
-					title: "A Very Descriptive Title",
-					type: "A type.",
-					image:
-						"https://user-images.githubusercontent.com/5182256/131216951-8f74f425-f775-463d-a11b-0e01ad9fce8d.png",
-				},
-			}}
-			twitter={{
-				creator: "@jonasmerlins1",
-			}}
-			extend={{
-				// extending the default link tags
-				link: [{ rel: "icon", href: "/favicon.ico" }],
-				// extending the default meta tags
-				meta: [
-					{
-						name: "twitter:image",
-						content:
-							"https://user-images.githubusercontent.com/5182256/131216951-8f74f425-f775-463d-a11b-0e01ad9fce8d.png",
-					},
-					{ name: "twitter:title", content: "Tinker Tailor Soldier Spy" },
-					{ name: "twitter:description", content: "Agent" },
-				],
-			}}
-		/>
+
 		<script is:inline>
 			(function () {
 				const hasTouch =
@@ -63,8 +63,22 @@ const { title = "Alexandr Codes", description = "Alexandr Codes profile" } =
 	<body
 		class="h-[100dvh] w-[100dvw] flex flex-col flex-nowrap justify-center items-stretch content-stretch overflow-hidden"
 	>
-		<CardLayout>
-			<slot />
-		</CardLayout>
+		<div
+			class="card__wrapper flex-1 flex flex-col flex-nowrap justify-center items-stretch content-stretch overflow-hidden p-1 bg-[radial-gradient(ellipse_45%_70%_at_130%_65%,var(--color-background-stroke-start)_0%,var(--color-background-stroke-end)_100%)]"
+		>
+			<div
+				class="card__body text-font-primary overflow-auto flex-1 flex flex-col flex-nowrap gap-20 p-12 bg-[radial-gradient(ellipse_80%_70%_at_130%_65%,var(--color-background-fill-start)_0%,var(--color-background-fill-end)_100%)]"
+			>
+				<slot />
+
+				{
+					site?.footer?.text && (
+						<footer class="text-center text-sm opacity-30">
+							{site.footer.text}
+						</footer>
+					)
+				}
+			</div>
+		</div>
 	</body>
 </html>

@@ -2,21 +2,21 @@
 	"name": "starcard",
 	"version": "1.0.0",
 	"type": "module",
-	"description": "Starcard – an Astro theme for personal identity cards with QR contact sharing.",
+	"description": "Starcard – an Astro template for personal identity cards with QR contact sharing.",
 	"author": {
-		"name": "Alexander Sedeke",
-		"email": "alexandr@studio",
-		"url": "https://alexandr.studio"
+		"name": "Your Name",
+		"email": "you@example.com",
+		"url": "https://example.com"
 	},
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/alexandr-studio/starcard.git"
+		"url": "https://github.com/your-org/starcard"
 	},
 	"bugs": {
-		"url": "https://github.com/alexandr-studio/starcard/issues"
+		"url": "https://github.com/your-org/starcard/issues"
 	},
-	"homepage": "https://alexandr.studio/projects/starcard",
+	"homepage": "https://your-org.github.io/starcard",
 	"keywords": [
 		"astro",
 		"astro-theme",
@@ -40,8 +40,6 @@
 		"@astrojs/sitemap": "^3.5.1",
 		"@tailwindcss/vite": "^4.1.13",
 		"astro": "^5.13.5",
-		"astro-robots-txt": "^1.0.0",
-		"astro-seo": "^0.8.4",
 		"clsx": "^2.1.1",
 		"libphonenumber-js": "^1.12.15",
 		"qrcode": "^1.5.4",
