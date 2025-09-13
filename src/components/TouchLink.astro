@@ -22,7 +22,7 @@ const { href, label, target = "_blank" } = Astro.props as Props;
 		{
 			label ?? (
 				<>
-					<span class="hidden md:inline text-font-secondary">
+					<span class="hidden xl:inline text-font-secondary">
 						{fmtUrlHostname(href)}
 					</span>
 					<span class="font-font-primary">{formatUrlPath(href)}</span>
