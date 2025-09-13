@@ -1,0 +1,32 @@
+# Node & builds
+node_modules/
+dist/
+.tmp/
+.cache/
+coverage/
+*.log
+.claude/
+.cursor/
+.cursorrules
+.cursorrules.md
+
+# VCS & IDE
+.git/
+.github/
+.vscode/
+.idea/
+.DS_Store
+
+# Env & locks
+.env*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+pnpm-workspace.yaml
+
+# Local notes/docs not needed in published package
+plan.md
+scope.md
+
+# Misc
+**/*.map

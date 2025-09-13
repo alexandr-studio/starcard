@@ -2,7 +2,23 @@
 
 Starcard is a reusable Astro template for a minimalist personal identity card with QR contact sharing and vCard support. It is configured via your Astro config, similar to Starlight.
 
-## Quick start
+## Use this template
+
+Once published to npm as `starcard` (or a scoped name), you can scaffold a new project from this template:
+
+```sh
+npm create astro@latest -- --template starcard
+# or with a scope
+npm create astro@latest -- --template @your-org/starcard
+```
+
+Alternatively, you can point to a Git repo:
+
+```sh
+npm create astro@latest -- --template your-org/starcard
+```
+
+## Quick start (develop this repo)
 
 ```sh
 pnpm install
@@ -35,6 +51,8 @@ export default defineConfig({
 				firstName: "Your",
 				lastName: "Name",
 				title: "Full‑stack Developer",
+				company: "Your Company",
+				companyUrl: "https://company.example",
 				email: "you@example.com",
 				phone: "+123456789",
 				homePage: "https://example.com",
@@ -78,11 +96,29 @@ export default defineConfig({
 - `Layout.astro` sets `<title>`, description, keywords, canonical, Open Graph, and Twitter tags using your meta config. Favicon is also configurable.
 - `index.astro` renders your profile (Persona, Info, sections, legal). Sections and items are rendered in ascending `order`.
 
-## Customization
+## Publishing
 
-- Replace `public/favicon.svg` or set `meta.favicon` in config.
-- Add or edit icons in `src/components/icons/` and refer to them by filename (lowercase) in your profile items.
-- Update colors via CSS variables in `src/styles/theme.css` or extend Tailwind.
+- Ensure `package.json` has a unique `name` (consider a scope like `@your-org/starcard`).
+- Add a license file (MIT).
+- Verify files to publish: use `.npmignore` or `files` in `package.json` (this repo includes both).
+- Test what will be published:
+
+```sh
+npm publish --dry-run
+```
+
+- Publish:
+
+```sh
+npm login
+npm publish --access public
+```
+
+After publishing, users can scaffold with:
+
+```sh
+npm create astro@latest -- --template starcard
+```
 
 ## Deploy
 

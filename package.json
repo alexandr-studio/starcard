@@ -36,6 +36,17 @@
 		"format": "prettier --write .",
 		"format:check": "prettier --check ."
 	},
+	"files": [
+		"src/**",
+		"public/**",
+		"astro.config.*",
+		"package.json",
+		"README.md",
+		"LICENSE"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
 	"dependencies": {
 		"@astrojs/sitemap": "^3.5.1",
 		"@tailwindcss/vite": "^4.1.13",
