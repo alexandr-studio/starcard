@@ -11,7 +11,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/alexandr-studio/starcard"
+		"url": "git+https://github.com/alexandr-studio/starcard.git"
 	},
 	"bugs": {
 		"url": "https://github.com/alexandr-studio/starcard/issues"
