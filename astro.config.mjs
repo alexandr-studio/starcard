@@ -6,7 +6,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://alexandr.codes",
+	site: "https://example.com",
 	vite: {
 		plugins: [tailwindcss()],
 		resolve: {
@@ -19,38 +19,28 @@ export default defineConfig({
 		sitemap(),
 		starcard({
 			meta: {
-				title: "Alexander Sedeke",
-				description: "Full-stack Developer & Videographer",
-				keywords: [
-					"astro",
-					"astro-theme",
-					"astro-template",
-					"starcard",
-					"profile",
-					"vcard",
-					"qr-code",
-					"identity",
-					"contact",
-				],
+				title: "Your Name",
+				description: "Short bio or tagline",
+				keywords: ["astro-template", "profile", "vcard", "portfolio"],
 				favicon: "/favicon.svg",
 			},
 			footer: {
-				text: "© 2025 Alexander Sedeke",
+				text: "© 2025 Your Name",
 			},
 			profile: {
-				displayName: "Alexander Sedeke",
-				firstName: "Alexander",
+				displayName: "Your Name",
+				firstName: "Your",
 				middleName: "",
-				lastName: "Sedeke",
-				title: "Full-stack Developer & Videographer",
-				company: "Starcard Studio",
-				companyUrl: "https://alexandr.studio",
-				avatarUrl: "https://github.com/alexandrstudio.png",
+				lastName: "Name",
+				title: "Full‑stack Developer",
+				company: "Your Company",
+				companyUrl: "https://company.example",
+				avatarUrl: "https://github.com/your-avatar.png",
 				avatarRounded: "full",
-				email: "alexandr@alexandr.codes",
-				phone: "+420777123456",
-				homePage: "https://alexandr.codes",
-				location: "Prague, Czech Republic",
+				email: "you@example.com",
+				phone: "+123456789",
+				homePage: "https://example.com",
+				location: "City, Country",
 				vcard: true,
 				sections: [
 					{
@@ -60,29 +50,9 @@ export default defineConfig({
 						icon: "social",
 						items: [
 							{
-								id: "linkedin",
-								icon: "linkedin",
-								url: "https://www.linkedin.com/in/alexander-sedeke",
-							},
-							{
-								id: "x",
-								icon: "twitter",
-								url: "https://x.com/AlexandrCodes",
-							},
-							{
 								id: "github",
 								icon: "github",
-								url: "https://github.com/alexandrstudio",
-							},
-							{
-								id: "instagram",
-								icon: "instagram",
-								url: "https://www.instagram.com/alexandr.codes",
-							},
-							{
-								id: "codepen",
-								icon: "codepen",
-								url: "https://codepen.io/studioalex",
+								url: "https://github.com/you",
 							},
 						],
 					},
@@ -95,12 +65,7 @@ export default defineConfig({
 							{
 								id: "youtube",
 								icon: "youtube",
-								url: "https://www.youtube.com/@happilylostinprague",
-							},
-							{
-								id: "substack",
-								icon: "substack",
-								url: "https://substack.com/@alexandcodes",
+								url: "https://www.youtube.com/@your-channel",
 							},
 						],
 					},
@@ -112,8 +77,8 @@ export default defineConfig({
 						items: [
 							{
 								id: "buymeacoffee",
-								icon: "linkedin",
-								url: "https://www.linkedin.com/in/alexander-sedeke",
+								icon: "coffee",
+								url: "https://buymeacoffee.com/you",
 							},
 						],
 					},
