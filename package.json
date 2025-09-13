@@ -4,19 +4,19 @@
 	"type": "module",
 	"description": "Starcard – an Astro template for personal identity cards with QR contact sharing.",
 	"author": {
-		"name": "Your Name",
-		"email": "you@example.com",
-		"url": "https://example.com"
+		"name": "Alexander Sedeke",
+		"email": "alexandr@studio",
+		"url": "https://alexandr.studio"
 	},
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/your-org/starcard"
+		"url": "https://github.com/alexandr-studio/starcard"
 	},
 	"bugs": {
-		"url": "https://github.com/your-org/starcard/issues"
+		"url": "https://github.com/alexandr-studio/starcard/issues"
 	},
-	"homepage": "https://your-org.github.io/starcard",
+	"homepage": "https://alexandr.studio/",
 	"keywords": [
 		"astro",
 		"astro-theme",
