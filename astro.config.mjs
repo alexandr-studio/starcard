@@ -43,6 +43,8 @@ export default defineConfig({
 				middleName: "",
 				lastName: "Sedeke",
 				title: "Full-stack Developer & Videographer",
+				company: "Starcard Studio",
+				companyUrl: "https://alexandr.studio",
 				avatarUrl: "https://github.com/alexandrstudio.png",
 				avatarRounded: "full",
 				email: "alexandr@alexandr.codes",

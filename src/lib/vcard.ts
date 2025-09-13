@@ -4,6 +4,8 @@ export type Profile = {
 	middleName?: string;
 	lastName: string;
 	title?: string;
+	company?: string;
+	companyUrl?: string;
 	avatarUrl?: string;
 	email?: string;
 	phone?: string;
@@ -53,6 +55,8 @@ export function buildVCard(
 		middleName,
 		lastName,
 		title,
+		company,
+		companyUrl,
 		avatarUrl,
 		email,
 		phone,
@@ -77,6 +81,7 @@ export function buildVCard(
 	lines.push(`FN:${esc(fullName, version)}`);
 
 	if (title) lines.push(`TITLE:${esc(title, version)}`);
+	if (company) lines.push(`ORG:${esc(company, version)}`);
 
 	if (email) {
 		if (version === "3.0")
@@ -112,6 +117,11 @@ export function buildVCard(
 	}
 
 	if (homePage) lines.push(`URL:${esc(homePage, version)}`);
+	if (companyUrl) {
+		if (version === "3.0")
+			lines.push(`URL;TYPE=WORK:${esc(companyUrl, version)}`);
+		else lines.push(`URL;TYPE=work:${esc(companyUrl, version)}`);
+	}
 
 	lines.push("END:VCARD");
 

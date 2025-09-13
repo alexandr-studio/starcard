@@ -9,7 +9,7 @@ import TouchLink from "@/components/TouchLink.astro";
 import type { LegalField } from "@/components/LegalSection.astro";
 import { site } from "virtual:starcard/config";
 
-const iconModules = import.meta.glob("@/components/icons/*.astro", {
+const iconModules = import.meta.glob("../components/icons/*.astro", {
 	eager: true,
 });
 // normalize keys: "@/components/icons/linkedin.astro" → "linkedin"
@@ -26,6 +26,8 @@ const vCardProfile = {
 	middleName: profile.middleName,
 	lastName: profile.lastName,
 	title: profile.title,
+	company: profile.company,
+	companyUrl: profile.companyUrl,
 	email: profile.email,
 	phone: profile.phone,
 	homePage: profile.homePage,
@@ -37,6 +39,8 @@ const vCardProfile = {
 	<Persona
 		name={profile.displayName}
 		title={profile.title}
+		company={profile.company}
+		companyUrl={profile.companyUrl}
 		avatarUrl={profile.avatarUrl}
 		avatarRounded={profile.avatarRounded as
 			| "full"

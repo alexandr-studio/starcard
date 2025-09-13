@@ -15,6 +15,8 @@ declare module "virtual:starcard/config" {
 			middleName?: string;
 			lastName: string;
 			title?: string;
+			company?: string;
+			companyUrl?: string;
 			avatarUrl?: string;
 			avatarRounded?: "none" | "sm" | "md" | "lg" | "xl" | "full";
 			email?: string;

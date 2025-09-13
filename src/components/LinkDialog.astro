@@ -22,7 +22,9 @@ const {
 >
 	<div class="space-y-4">
 		<div class="flex justify-center">
-			<div class="w-[50vw] h-[50vw] min-h-[300px] min-w-[300px]">
+			<div
+				class="w-[50vw] h-[50vw] min-h-[300px] min-w-[300px] max-h-[70vh] max-w-[70vh] [&_svg]:max-h-[70vh] [&_svg]:max-w-[70vh]"
+			>
 				<QRcode value={value} />
 			</div>
 		</div>

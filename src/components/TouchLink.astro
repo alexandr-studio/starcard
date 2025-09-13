@@ -39,14 +39,17 @@ const { href, label, target = "_blank" } = Astro.props as Props;
 		if (customElements.get("touch-link")) return;
 
 		class TouchLink extends HTMLElement {
-			/** @type {HTMLAnchorElement|null} */ link = null;
-			/** @type {HTMLDialogElement|null} */ dialog = null;
-			/** @type {MutationObserver|null} */ mo = null;
-			/** @type {boolean} */ isTouch = false;
-			/** @type {boolean} */ bound = false;
+			link = null;
+			dialog = null;
+			mo = null;
+			isTouch = false;
+			bound = false;
+
+			onClick = null;
+			onKey = null;
+			onDesktopClick = null; // NEW
 
 			connectedCallback() {
-				// compute once
 				this.isTouch =
 					window.__HAS_TOUCH__ !== undefined
 						? window.__HAS_TOUCH__
@@ -54,7 +57,6 @@ const { href, label, target = "_blank" } = Astro.props as Props;
 							navigator.maxTouchPoints > 0 ||
 							(navigator.msMaxTouchPoints ?? 0) > 0;
 
-				// try immediate bind; if not ready, observe until children appear
 				this.tryBind();
 				if (!this.bound) {
 					this.mo = new MutationObserver(() => this.tryBind());
@@ -73,11 +75,10 @@ const { href, label, target = "_blank" } = Astro.props as Props;
 
 				this.link = this.querySelector("a");
 				this.dialog = this.querySelector("dialog");
+				if (!this.link || !this.dialog) return;
 
-				if (!this.link || !this.dialog) return; // not ready yet
-
-				// Touch: convert link into a button-like trigger (no navigation)
 				if (this.isTouch) {
+					// Touch: convert link into a button-like trigger (no navigation)
 					const url =
 						this.link.getAttribute("data-href") ||
 						this.link.getAttribute("href") ||
@@ -91,8 +92,9 @@ const { href, label, target = "_blank" } = Astro.props as Props;
 
 					this.onClick = (e) => {
 						e.preventDefault();
-						if (this.dialog && typeof this.dialog.showModal === "function")
+						if (this.dialog && typeof this.dialog.showModal === "function") {
 							this.dialog.showModal();
+						}
 					};
 					this.onKey = (e) => {
 						if (e.key === "Enter" || e.key === " ") {
@@ -103,7 +105,7 @@ const { href, label, target = "_blank" } = Astro.props as Props;
 					this.link.addEventListener("click", this.onClick, { passive: false });
 					this.link.addEventListener("keydown", this.onKey);
 				} else {
-					// Desktop: ensure normal navigation (restore href if missing)
+					// Desktop: ensure normal navigation
 					const url =
 						this.link.getAttribute("data-href") ||
 						this.getAttribute("href") ||
@@ -113,9 +115,26 @@ const { href, label, target = "_blank" } = Astro.props as Props;
 					const target = this.getAttribute("target") || "_blank";
 					if (target) {
 						this.link.setAttribute("target", target);
-						if (target === "_blank")
+						if (target === "_blank") {
 							this.link.setAttribute("rel", "noopener noreferrer");
+						}
 					}
+
+					// NEW: desktop modified-click opens dialog (Ctrl/Cmd/Alt/Shift)
+					this.onDesktopClick = (e) => {
+						// Only react to plain left-button clicks with modifiers
+						const isLeft = e.button === 0;
+						const hasMod = e.metaKey || e.ctrlKey || e.altKey || e.shiftKey;
+						if (!isLeft || !hasMod) return;
+						if (!this.dialog || typeof this.dialog.showModal !== "function")
+							return;
+
+						e.preventDefault();
+						this.dialog.showModal();
+					};
+					this.link.addEventListener("click", this.onDesktopClick, {
+						passive: false,
+					});
 				}
 
 				this.bound = true;
@@ -128,11 +147,10 @@ const { href, label, target = "_blank" } = Astro.props as Props;
 					this.link.removeEventListener("click", this.onClick);
 				if (this.link && this.onKey)
 					this.link.removeEventListener("keydown", this.onKey);
+				if (this.link && this.onDesktopClick)
+					this.link.removeEventListener("click", this.onDesktopClick);
 				this.bound = false;
 			}
-
-			onClick = null;
-			onKey = null;
 		}
 
 		customElements.define("touch-link", TouchLink);

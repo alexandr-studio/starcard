@@ -73,8 +73,15 @@ const {
 
 				{
 					site?.footer?.text && (
-						<footer class="text-center text-sm opacity-30">
-							{site.footer.text}
+						<footer class="text-center text-sm">
+							<span class="opacity-40">{site.footer.text} - Created with </span>
+							<a
+								href="https://starcard.studio"
+								target="_blank"
+								class="opacity-50"
+							>
+								Starcard
+							</a>
 						</footer>
 					)
 				}

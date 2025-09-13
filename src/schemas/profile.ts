@@ -40,6 +40,8 @@ export const ProfileSchema = z.object({
 
 	// Optional fields
 	title: z.string().optional(),
+	company: z.string().optional(),
+	companyUrl: z.string().url().optional(),
 	avatarUrl: z.string().url().optional(),
 	avatarRounded: z.enum(["none", "sm", "md", "lg", "xl", "full"]).optional(),
 	email: z.string().email().optional(),

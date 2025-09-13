@@ -1,12 +1,23 @@
 ---
+import CompanyIcon from "./icons/Company.astro";
+
 export interface Props {
 	name?: string;
 	title?: string;
+	company?: string;
+	companyUrl?: string;
 	avatarUrl?: string;
 	avatarRounded?: "none" | "sm" | "md" | "lg" | "xl" | "full";
 }
 
-const { name, title, avatarUrl, avatarRounded = "xl" } = Astro.props as Props;
+const {
+	name,
+	title,
+	company,
+	companyUrl,
+	avatarUrl,
+	avatarRounded = "xl",
+} = Astro.props as Props;
 
 const avatarRoundedSize = {
 	none: "0",
@@ -41,16 +52,38 @@ const roundedSize = avatarRoundedSize[avatarRounded];
 		</div>
 		<div class="persona__text flex">
 			<div>
-				<h1
-					class="persona__name mt-4 leading-[1.2] font-medium lg:font-bold tracking-tight text-font-primary"
-				>
-					{name}
-				</h1>
-				<p
-					class="persona__title mt-4 eading-[1.2] font-light text-font-secondary"
-				>
-					{title}
-				</p>
+				{
+					name && (
+						<h1 class="persona__name mt-4 leading-[1.2] font-medium lg:font-bold tracking-tight text-font-primary">
+							{name}
+						</h1>
+					)
+				}
+				{
+					title && (
+						<p class="persona__title mt-4 leading-[1.2] font-light text-font-secondary">
+							{title}
+						</p>
+					)
+				}
+				{
+					company && !companyUrl && (
+						<h2 class="persona__company flex flex-row flex-nowrap items-center mt-12 leading-[1.2] font-light text-font-primary">
+							<CompanyIcon class="size-10 mr-4 text-font-secondary" /> {company}
+						</h2>
+					)
+				}
+				{
+					company && companyUrl && (
+						<a
+							href={companyUrl}
+							target="_blank"
+							class="persona__company flex flex-row flex-nowrap items-center mt-12 leading-[1.2] font-light text-font-primary"
+						>
+							<CompanyIcon class="size-10 mr-4 text-font-secondary" /> {company}
+						</a>
+					)
+				}
 			</div>
 		</div>
 	</div>
@@ -74,7 +107,12 @@ const roundedSize = avatarRoundedSize[avatarRounded];
 				font-size: clamp(1.75rem, 8cqw, 3rem);
 			}
 			.persona__title {
-				font-size: clamp(1.25rem, 2.5cqw, 2rem);
+				font-size: clamp(1rem, 2cqw, 2rem);
+			}
+
+			.persona__company {
+				font-size: clamp(1.5rem, 4cqw, 2.1rem);
+				justify-content: start;
 			}
 
 			.persona__text {
@@ -102,6 +140,10 @@ const roundedSize = avatarRoundedSize[avatarRounded];
 			}
 			.persona__title {
 				font-size: clamp(1.25rem, 2.5cqw, 1.75rem);
+			}
+			.persona__company {
+				font-size: clamp(1.5rem, 4cqw, 2.1rem);
+				justify-content: center;
 			}
 		}
 	</style>
