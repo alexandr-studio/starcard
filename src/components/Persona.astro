@@ -50,7 +50,7 @@ const roundedSize = avatarRoundedSize[avatarRounded];
 				)
 			}
 		</div>
-		<div class="persona__text flex">
+		<div class="persona__text">
 			<div>
 				{
 					name && (
@@ -69,7 +69,8 @@ const roundedSize = avatarRoundedSize[avatarRounded];
 				{
 					company && !companyUrl && (
 						<h2 class="persona__company flex flex-row flex-nowrap items-center mt-12 leading-[1.2] font-light text-font-primary">
-							<CompanyIcon class="size-10 mr-4 text-font-secondary" /> {company}
+							<CompanyIcon class="size-10 mr-4 text-font-secondary opacity-50" />
+							{company}
 						</h2>
 					)
 				}
@@ -80,7 +81,8 @@ const roundedSize = avatarRoundedSize[avatarRounded];
 							target="_blank"
 							class="persona__company flex flex-row flex-nowrap items-center mt-12 leading-[1.2] font-light text-font-primary"
 						>
-							<CompanyIcon class="size-10 mr-4 text-font-secondary" /> {company}
+							<CompanyIcon class="size-10 mr-4 text-font-secondary opacity-65" />{" "}
+							{company}
 						</a>
 					)
 				}

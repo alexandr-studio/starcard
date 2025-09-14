@@ -19,7 +19,7 @@ const { title = "Legal", records = [] } = Astro.props as Props;
 ---
 
 <Section title={title}>
-	<LegalIcon slot="icon" title={title} />
+	<LegalIcon slot="icon" title={title} class="size-8 md:size-10 -mt-1" />
 	{
 		records.length > 0 && (
 			<div class="flex flex-col flex-nowrap gap-4">

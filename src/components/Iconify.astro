@@ -1,0 +1,56 @@
+---
+import collection from "@iconify-json/simple-icons/icons.json";
+import { getIconData, iconToSVG } from "@iconify/utils";
+
+export interface Props {
+	name: string; // e.g., "simple-icons:github" or just "github"
+	title?: string;
+}
+
+const { name, title } = Astro.props as Props;
+
+function resolveIconName(input: string): { set: string; key: string } | null {
+	if (!input) return null;
+	const s = String(input);
+	if (s.includes(":")) {
+		const [set, key] = s.split(":");
+		return { set, key };
+	}
+	return { set: "simple-icons", key: s };
+}
+
+function escapeHtml(text: string): string {
+	return text
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#39;");
+}
+
+const resolved = resolveIconName(name);
+let svgAttrs: Record<string, string> = {};
+let svgBody = "";
+
+if (resolved && resolved.set === "simple-icons") {
+	const data = getIconData(collection as any, resolved.key);
+	if (data) {
+		const { attributes, body } = iconToSVG(data, { height: "1em" });
+		svgAttrs = attributes as Record<string, string>;
+		svgBody = body as string;
+	}
+}
+---
+
+{
+	svgBody && (
+		<svg
+			{...svgAttrs}
+			fill="currentColor"
+			aria-hidden={title ? undefined : "true"}
+			set:html={
+				title ? `<title>${escapeHtml(title)}</title>${svgBody}` : svgBody
+			}
+		/>
+	)
+}

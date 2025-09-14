@@ -1,22 +1,20 @@
-# Starcard – an Astro template for personal identity cards
+# Starcard
+
+An Astro template for personal identity cards
 
 Starcard is a reusable Astro template for a minimalist personal identity card with QR contact sharing and vCard support. It is configured via your Astro config, similar to Starlight.
 
 ## Use this template
 
-Once published to npm as `starcard` (or a scoped name), you can scaffold a new project from this template:
+Create a new project directly from this GitHub repository:
 
 ```sh
-npm create astro@latest -- --template starcard
-# or with a scope
-npm create astro@latest -- --template @your-org/starcard
+npm create astro@latest -- --template alexandr-studio/starcard
+# or explicitly with a GitHub prefix
+npm create astro@latest -- --template github:alexandr-studio/starcard
 ```
 
-Alternatively, you can point to a Git repo:
-
-```sh
-npm create astro@latest -- --template your-org/starcard
-```
+Alternatively, click "Use this template" on GitHub to generate your own repository and clone it locally.
 
 ## Quick start (develop this repo)
 
@@ -24,6 +22,11 @@ npm create astro@latest -- --template your-org/starcard
 pnpm install
 pnpm dev
 ```
+
+## Requirements
+
+- Node.js 18.17+ (Node 20+ recommended)
+- pnpm (recommended) or npm/yarn
 
 ## Configure via astro.config
 
@@ -96,38 +99,44 @@ export default defineConfig({
 - `Layout.astro` sets `<title>`, description, keywords, canonical, Open Graph, and Twitter tags using your meta config. Favicon is also configurable.
 - `index.astro` renders your profile (Persona, Info, sections, legal). Sections and items are rendered in ascending `order`.
 
-## Publishing
+## Icons (Iconify Simple Icons)
 
-- Ensure `package.json` has a unique `name` (consider a scope like `@your-org/starcard`).
-- Add a license file (MIT).
-- Verify files to publish: use `.npmignore` or `files` in `package.json` (this repo includes both).
-- Test what will be published:
+Starcard renders brand icons via Iconify’s Simple Icons set. Set `icon` on your sections/items to a Simple Icons name (lowercase). A few aliases are supported (e.g., `twitter` → `x`).
 
-```sh
-npm publish --dry-run
+- Browse the set: [Iconify – Simple Icons](https://icon-sets.iconify.design/simple-icons/)
+- Examples: `github`, `linkedin`, `x`, `bluesky`, `substack`, `mastodon`
+
+Example configuration:
+
+```ts
+sections: [
+	{
+		order: 1,
+		id: "socials",
+		title: "Socials",
+		icon: "social", // section icon, also uses Iconify
+		items: [
+			{ id: "github", icon: "github", url: "https://github.com/you" },
+			{ id: "bluesky", icon: "bluesky", url: "https://bsky.app/profile/you" },
+			{ id: "x", icon: "x", url: "https://x.com/you" },
+			{ id: "substack", icon: "substack", url: "https://you.substack.com" },
+		],
+	},
+];
 ```
 
-- Publish:
+## Features & benefits
 
-```sh
-npm login
-npm publish --access public
-```
-
-After publishing, users can scaffold with:
-
-```sh
-npm create astro@latest -- --template starcard
-```
-
-## Deploy
-
-```sh
-pnpm build
-pnpm preview
-```
-
-Deploy the `dist/` folder to your host (e.g., Netlify, Vercel, GitHub Pages). Ensure `site` is set in `astro.config` for correct sitemap and canonical URLs.
+- **Fast setup**: Scaffold, edit `astro.config.*`, and you’re ready
+- **Mobile‑first sharing**: Touch devices open a QR dialog for any link
+- **Desktop‑friendly**: Links open in a new tab; modifier‑click shows QR
+- **vCard support**: Optional QR for quick “Add to Contacts”
+- **Clean design**: Minimal, focused single‑page layout
+- **SEO ready**: Title, description, keywords, canonical, OG/Twitter
+- **Type‑safe config**: Zod‑validated options with a virtual module
+- **Tailwind CSS v4**: Utility‑first styling and easy customization
+- **Iconify icons**: Use any Simple Icons name via Iconify
+- **Orderable sections**: Control section and item order with `order`
 
 ## License
 

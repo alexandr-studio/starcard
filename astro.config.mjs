@@ -47,11 +47,11 @@ export default defineConfig({
 						order: 1,
 						id: "socials",
 						title: "Socials",
-						icon: "social",
+						icon: "chatbot",
 						items: [
 							{
 								id: "github",
-								icon: "github",
+								icon: "linkedin",
 								url: "https://github.com/you",
 							},
 						],
@@ -60,7 +60,7 @@ export default defineConfig({
 						order: 1,
 						id: "presence",
 						title: "Presence",
-						icon: "starfill",
+						icon: "chromewebstore",
 						items: [
 							{
 								id: "youtube",
@@ -73,11 +73,11 @@ export default defineConfig({
 						order: 3,
 						id: "support",
 						title: "Support",
-						icon: "coffee",
+						icon: "buymeacoffee",
 						items: [
 							{
 								id: "buymeacoffee",
-								icon: "coffee",
+								icon: "buymeacoffee",
 								url: "https://buymeacoffee.com/you",
 							},
 						],

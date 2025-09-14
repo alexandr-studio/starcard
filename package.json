@@ -59,6 +59,8 @@
 		"zod": "^4.1.8"
 	},
 	"devDependencies": {
+		"@iconify-json/simple-icons": "^1.2.51",
+		"@iconify/utils": "^3.0.1",
 		"@types/qrcode": "^1.5.5",
 		"prettier": "^3.6.2",
 		"prettier-plugin-astro": "^0.14.1"

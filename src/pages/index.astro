@@ -8,17 +8,8 @@ import LegalSection from "@/components/LegalSection.astro";
 import TouchLink from "@/components/TouchLink.astro";
 import type { LegalField } from "@/components/LegalSection.astro";
 import { site } from "virtual:starcard/config";
-
-const iconModules = import.meta.glob("../components/icons/*.astro", {
-	eager: true,
-});
-// normalize keys: "@/components/icons/linkedin.astro" → "linkedin"
-const icons = Object.fromEntries(
-	Object.entries(iconModules).map(([path, mod]) => {
-		const name = path.split("/").pop()?.replace(".astro", "") ?? "";
-		return [name.toLowerCase(), (mod as any).default];
-	})
-);
+import Iconify from "@/components/Iconify.astro";
+import { toIconifyNameSimpleIcons } from "@/lib/iconify";
 
 const profile = site.profile;
 const vCardProfile = {
@@ -63,23 +54,29 @@ const vCardProfile = {
 			?.slice()
 			.sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
 			.map((section) => {
-				const SectionIcon = icons[section.icon?.toLowerCase() ?? ""] ?? null;
+				const sectionIconifyName = toIconifyNameSimpleIcons(section.icon);
 
 				return (
 					<Section title={section.title}>
-						{SectionIcon && <SectionIcon slot="icon" title={section.title} />}
+						{sectionIconifyName && (
+							<Iconify
+								slot="icon"
+								name={sectionIconifyName}
+								title={section.title}
+							/>
+						)}
 						<div class="flex flex-col flex-nowrap gap-4">
 							{section.items
 								?.slice()
 								.sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
 								.map((item) => {
-									const Icon = icons[item.icon?.toLowerCase() ?? ""] ?? null;
+									const iconifyName = toIconifyNameSimpleIcons(item.icon);
 									return (
 										<Field>
 											{item.url && <TouchLink href={item.url} />}
-											{Icon && (
+											{iconifyName && (
 												<span slot="icon">
-													<Icon title={item.url ?? ""} />
+													<Iconify name={iconifyName} title={item.url ?? ""} />
 												</span>
 											)}
 										</Field>
