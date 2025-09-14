@@ -1,6 +1,5 @@
 ---
 import Section from "@/components/Section.astro";
-import QRCode from "@/components/QRcode.astro";
 import LinkDialog from "@/components/LinkDialog.astro";
 import Field from "@/components/Field.astro";
 import PhoneIcon from "@/components/icons/Phone.astro";
@@ -9,7 +8,7 @@ import WebsiteIcon from "@/components/icons/Web.astro";
 import LocationIcon from "@/components/icons/Location.astro";
 import VcardIcon from "@/components/icons/Vcard.astro";
 import { formatPhoneIntl } from "@/lib/phone";
-import { buildVCard, vcardDataUrl, type Profile } from "@/lib/vcard";
+import { buildVCard, type Profile } from "@/lib/vcard";
 
 export interface Props {
 	phone?: string;

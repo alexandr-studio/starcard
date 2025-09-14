@@ -54,7 +54,7 @@ export default defineConfig({
 						items: [
 							{
 								id: "github",
-								icon: "linkedin",
+								icon: "github",
 								url: "https://github.com/you",
 							},
 						],
@@ -86,17 +86,6 @@ export default defineConfig({
 						],
 					},
 				],
-				legal: {
-					title: "Legal",
-					items: [
-						{
-							order: 1,
-							id: "vatid",
-							title: "VAT ID",
-							value: "CZ1234567890",
-						},
-					],
-				},
 			},
 		}),
 	],
