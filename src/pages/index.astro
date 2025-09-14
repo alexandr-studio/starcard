@@ -27,6 +27,19 @@ const vCardProfile = {
 ---
 
 <Layout>
+	{
+		profile.avatarUrl && (
+			<Fragment slot="head">
+				<link
+					rel="preload"
+					as="image"
+					href={profile.avatarUrl}
+					imagesrcset={profile.avatarUrl}
+					fetchpriority="high"
+				/>
+			</Fragment>
+		)
+	}
 	<Persona
 		name={profile.displayName}
 		title={profile.title}

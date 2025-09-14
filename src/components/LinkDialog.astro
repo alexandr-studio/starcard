@@ -19,6 +19,9 @@ const {
 
 <dialog
 	class="link-dialog rounded-xl bg-background-stroke-end p-6 backdrop:bg-black/50 backdrop:backdrop-blur-sm border border-background-stroke-end shadow-xl"
+	role="dialog"
+	aria-modal="true"
+	aria-label={title ? title : "Scan the QR code"}
 >
 	<div class="space-y-4">
 		<div class="flex justify-center">
@@ -49,6 +52,7 @@ const {
 						target="_blank"
 						rel="noopener noreferrer"
 						class="open-btn cursor-pointer px-10 py-4 rounded-lg bg-qr-gold-start font-bold text-background-fill-end hover:bg-qr-gold-end transition-colors"
+						aria-label={`Open link: ${value}`}
 					>
 						{openText}
 					</a>

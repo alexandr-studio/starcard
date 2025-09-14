@@ -15,6 +15,7 @@ const { href, label, target = "_blank" } = Astro.props as Props;
 		href={href}
 		data-href={href}
 		title={href}
+		aria-label={label ? label : `Open link: ${href}`}
 		target={target}
 		rel={target === "_blank" ? "noopener noreferrer" : undefined}
 		class="cursor-pointer hover:opacity-80"

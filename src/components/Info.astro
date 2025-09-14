@@ -34,7 +34,9 @@ const phoneIntl = phone ? (formatPhoneIntl(phone) ?? phone) : null;
 			{
 				phoneIntl && (
 					<Field>
-						<a href={`tel:${phone}`}>{phoneIntl}</a>
+						<a href={`tel:${phone}`} aria-label={`Call ${phoneIntl}`}>
+							{phoneIntl}
+						</a>
 						<span slot="icon">
 							<PhoneIcon />
 						</span>
@@ -44,7 +46,9 @@ const phoneIntl = phone ? (formatPhoneIntl(phone) ?? phone) : null;
 			{
 				email && (
 					<Field>
-						<a href={`mailto:${email}`}>{email}</a>
+						<a href={`mailto:${email}`} aria-label={`Email ${email}`}>
+							{email}
+						</a>
 						<span slot="icon">
 							<EmailIcon />
 						</span>
@@ -54,7 +58,12 @@ const phoneIntl = phone ? (formatPhoneIntl(phone) ?? phone) : null;
 			{
 				homePage && (
 					<Field>
-						<a target="_blank" href={homePage}>
+						<a
+							target="_blank"
+							href={homePage}
+							rel="noopener noreferrer"
+							aria-label={`Open website ${homePage}`}
+						>
 							{homePage}
 						</a>
 						<span slot="icon">
@@ -69,6 +78,8 @@ const phoneIntl = phone ? (formatPhoneIntl(phone) ?? phone) : null;
 						<a
 							target="_blank"
 							href={`https://maps.google.com/?q=${encodeURIComponent(location)}`}
+							rel="noopener noreferrer"
+							aria-label={`Open map for ${location} in Google Maps`}
 						>
 							{location}
 						</a>
@@ -85,7 +96,13 @@ const phoneIntl = phone ? (formatPhoneIntl(phone) ?? phone) : null;
 					class="flex-1 self-end flex justify-center items-end"
 					data-dialog-scope
 				>
-					<button type="button" class="w-36 cursor-pointer" data-open-dialog>
+					<button
+						type="button"
+						class="w-36 cursor-pointer"
+						data-open-dialog
+						aria-label="Open QR code to save contact"
+						aria-haspopup="dialog"
+					>
 						<VcardIcon />
 					</button>
 					{vcardString && vcard && (
