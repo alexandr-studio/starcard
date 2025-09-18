@@ -8,6 +8,8 @@ export interface Props {
 	target?: string;
 }
 const { href, label, target = "_blank" } = Astro.props as Props;
+const pathText = formatUrlPath(href);
+const showHostOnSmall = (pathText ?? "").trim().length < 3;
 ---
 
 <touch-link href={href} target={target}>
@@ -23,10 +25,10 @@ const { href, label, target = "_blank" } = Astro.props as Props;
 		{
 			label ?? (
 				<>
-					<span class="hidden xl:inline text-font-secondary">
+					<span class={showHostOnSmall ? "text-font-secondary" : "hidden xl:inline text-font-secondary"}>
 						{fmtUrlHostname(href)}
 					</span>
-					<span class="font-font-primary">{formatUrlPath(href)}</span>
+					<span class="font-font-primary">{pathText}</span>
 				</>
 			)
 		}
